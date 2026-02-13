@@ -1,0 +1,28 @@
+# --- SEGURIDAD ---
+# Ignora el archivo de variables de entorno donde irá tu OpenAI API KEY
+.env
+
+# --- DATOS (PESADOS) ---
+# No subimos los CSV ni Excel a GitHub por peso y privacidad
+data/raw/
+data/processed/
+*.csv
+*.xlsx
+
+# --- PYTHON ---
+# Archivos temporales que genera Python al ejecutarse
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+
+# --- NOTEBOOKS ---
+# Archivos temporales de Jupyter
+.ipynb_checkpoints/
+
+# --- SISTEMA ---
+# Archivos invisibles de Windows/Mac
+.DS_Store
+Thumbs.db
