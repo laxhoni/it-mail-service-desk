@@ -1,6 +1,6 @@
-# IT Service Desk Sentiment Analysis 🚀
+# IT Service Desk Sentiment Analysis 
 
-## 📂 Estructura del Proyecto
+## Estructura del Proyecto
 ```text
 tfg-it-support-ia/
 ├── data/                       # Datos originales y procesados (Ignorados por Git)
