@@ -10,6 +10,7 @@ def obtener_resumen_generativo(tickets_criticos):
         return "No hay incidencias críticas sobre las que reportar."
 
     # Preparamos un texto con los asuntos y la IA razonamientos
+    # (t[1] es asunto, t[3] es razonamiento)
     texto_fallos = "\n".join([f"- Asunto: {t[1]} | Problema: {t[3]}" for t in tickets_criticos])
     
     prompt = f"""
@@ -45,9 +46,9 @@ def enviar_reporte_diario(webhook_url):
         todos_hoy = cursor.fetchall()
         total_tickets = len(todos_hoy)
         
-        # 2. Obtenemos SOLO los críticos (Score 4 y 5)
+        # 2. Obtenemos SOLO los críticos (Score 4 y 5), AHORA INCLUYENDO link_correo
         cursor.execute('''
-            SELECT remitente, asunto, score, razonamiento 
+            SELECT remitente, asunto, score, razonamiento, link_correo 
             FROM tickets 
             WHERE fecha LIKE ? AND score >= 4
         ''', (f"{fecha_hoy}%",))
@@ -101,15 +102,33 @@ def enviar_reporte_diario(webhook_url):
             
             # Lista de tickets críticos
             for ticket in tickets_criticos:
-                remitente, asunto, score, razonamiento = ticket
+                # Ahora desempaquetamos también el link_correo (5 variables)
+                remitente, asunto, score, razonamiento, link_correo = ticket
                 color = "attention" if score == 5 else "warning"
                 
+                # Elementos básicos de la incidencia
+                ticket_items = [
+                    {"type": "TextBlock", "text": f"🔥 [Score: {score}/5] {asunto}", "weight": "Bolder", "wrap": True},
+                    {"type": "TextBlock", "text": f"👤 {remitente} | 🤖 {razonamiento}", "wrap": True, "size": "Small"}
+                ]
+                
+                # Si existe el link, añadimos el botón a este bloque
+                if link_correo:
+                    ticket_items.append({
+                        "type": "ActionSet",
+                        "actions": [
+                            {
+                                "type": "Action.OpenUrl",
+                                "title": "📧 Abrir en Outlook",
+                                "url": link_correo
+                            }
+                        ]
+                    })
+                
+                # Añadimos el bloque completo a la tarjeta
                 cuerpo_tarjeta.append({
-                    "type": "Container", "style": color, "spacing": "Small",
-                    "items": [
-                        {"type": "TextBlock", "text": f"[Score: {score}/5] {asunto}", "weight": "Bolder", "wrap": True},
-                        {"type": "TextBlock", "text": f"👤 {remitente} | 🤖 {razonamiento}", "wrap": True, "size": "Small"}
-                    ]
+                    "type": "Container", "style": color, "spacing": "Small", "padding": "10px",
+                    "items": ticket_items
                 })
 
         payload = {
