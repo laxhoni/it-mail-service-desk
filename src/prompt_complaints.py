@@ -41,7 +41,7 @@ def analizar_con_ia(asunto, cuerpo):
             "prompt": prompt, 
             "format": "json", 
             "stream": False
-        }, timeout=25)
+        }, timeout=60)
         
         # Parseo de la respuesta
         respuesta_json = json.loads(r.json().get('response', '{}'))
