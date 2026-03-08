@@ -2,15 +2,14 @@ import sqlite3
 import logging
 from datetime import datetime
 import os
+import json 
 
 DB_PATH = "data/incidencias.db"
 
 def inicializar_db():
     if not os.path.exists("data"): os.makedirs("data")
-    
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
-    # Añadimos todas las columnas nuevas que vienen en tu JSON
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS tickets (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -25,22 +24,27 @@ def inicializar_db():
             razonamiento TEXT,
             archivo TEXT,
             link_correo TEXT,
-            id_mensaje TEXT
+            id_mensaje TEXT,
+            embedding_vector TEXT -- NUEVA COLUMNA RAG
         )
     ''')
     conn.commit()
     conn.close()
 
-def guardar_ticket(datos, res_ia, archivo):
+def guardar_ticket(datos, res_ia, archivo, vector_embedding):
     try:
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
+        
+        # Convertimos la lista de números a un string JSON para guardarlo en SQLite
+        vector_str = json.dumps(vector_embedding) if vector_embedding else "[]"
+        
         cursor.execute('''
             INSERT INTO tickets (
                 fecha, remitente, destinatario, asunto, cuerpo, importancia, 
-                prediccion, score, razonamiento, archivo, link_correo, id_mensaje
+                prediccion, score, razonamiento, archivo, link_correo, id_mensaje, embedding_vector
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ''', (
             datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             datos.get('remitente', 'Desconocido'),
@@ -53,7 +57,8 @@ def guardar_ticket(datos, res_ia, archivo):
             res_ia.get('razonamiento', 'Sin detalles'),
             archivo,
             datos.get('link_correo', ''),
-            datos.get('id_mensaje', 'SIN_ID')
+            datos.get('id_mensaje', 'SIN_ID'),
+            vector_str # Guardamos el vector
         ))
         conn.commit()
         conn.close()

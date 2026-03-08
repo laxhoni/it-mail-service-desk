@@ -31,11 +31,11 @@ def ejecutar_agente():
                 with open(ruta_completa, 'r', encoding='utf-8') as f:
                     datos = json.loads(f.read(), strict=False)
                 
-                # 1. Analizar con Llama 3.2
-                resultado = analizar_con_ia(datos.get('asunto'), datos.get('cuerpo'))
+                # 1. Analizar con Llama 3.2 (¡NUEVO: Desempaquetamos la respuesta y el vector matemático!)
+                resultado, vector_correo = analizar_con_ia(datos.get('asunto'), datos.get('cuerpo'))
                 
-                # 2. Persistencia en SQLite
-                guardar_ticket(datos, resultado, nombre_archivo)
+                # 2. Persistencia en SQLite (¡NUEVO: Pasamos el vector extra a la base de datos!)
+                guardar_ticket(datos, resultado, nombre_archivo, vector_correo)
                 
                 # 3. Filtro de Escalación (Solo Scores 4 y 5 van a Teams)
                 # Usamos .get() por seguridad extra
