@@ -8,7 +8,9 @@ from dotenv import load_dotenv
 # Tus importaciones exactas
 from src.setup_database import inicializar_db, guardar_ticket
 from src.prompt_complaints import analizar_con_ia
-from src.teams_bot import enviar_alerta_teams
+# Nota: enviar_alerta_teams puedes mantenerlo si quieres un aviso extra, 
+# pero el flujo nuevo se dispara por ARCHIVO.
+from src.teams_bot import enviar_alerta_teams 
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - [WORKER] - %(levelname)s - %(message)s')
 
@@ -18,32 +20,54 @@ def ejecutar_agente():
     INPUT_DIR = os.getenv("CARPETA_DOCS", "docs")
     PROC_DIR = "data/processed"
     
+    # 1. Definir y crear la carpeta de salida para Power Automate
+    ALERTS_OUT_DIR = os.path.join(INPUT_DIR, "Alertas_Teams")
+    
     if not os.path.exists(PROC_DIR): os.makedirs(PROC_DIR)
+    if not os.path.exists(ALERTS_OUT_DIR): os.makedirs(ALERTS_OUT_DIR)
+    
     inicializar_db()
     
-    logging.info("🚀 WORKER INICIADO - Escaneando correos 24/7...")
+    logging.info(f"🚀 WORKER INICIADO - Vigilando {INPUT_DIR}")
 
     while True:
-        archivos = [f for f in os.listdir(INPUT_DIR) if f.endswith('.json')]
+        # Filtramos para no procesar las subcarpetas, solo archivos JSON en la raíz de docs
+        archivos = [f for f in os.listdir(INPUT_DIR) if f.endswith('.json') and os.path.isfile(os.path.join(INPUT_DIR, f))]
+        
         for nombre_archivo in archivos:
             ruta_completa = os.path.join(INPUT_DIR, nombre_archivo)
             try:
                 with open(ruta_completa, 'r', encoding='utf-8') as f:
                     datos = json.loads(f.read(), strict=False)
                 
-                # 1. Analizar con Llama 3.2 (¡NUEVO: Desempaquetamos la respuesta y el vector matemático!)
+                # 1. Analizar con IA
                 resultado, vector_correo = analizar_con_ia(datos.get('asunto'), datos.get('cuerpo'))
                 
-                # 2. Persistencia en SQLite (¡NUEVO: Pasamos el vector extra a la base de datos!)
+                # 2. Persistencia en SQLite
                 guardar_ticket(datos, resultado, nombre_archivo, vector_correo)
                 
-                # 3. Filtro de Escalación (Solo Scores 4 y 5 van a Teams)
-                # Usamos .get() por seguridad extra
+                # 3. Filtro de Escalación
                 if resultado.get('score', 0) >= 4:
-                    logging.warning(f"🔥 Score {resultado['score']} detectado. Notificando...")
-                    enviar_alerta_teams(WEBHOOK, datos, resultado, nombre_archivo)
+                    logging.warning(f"🔥 Score {resultado['score']} detectado. Generando alerta para Teams...")
+                    
+                    # --- NUEVO: CREAR ARCHIVO PARA POWER AUTOMATE ---
+                    payload_teams = {
+                        "id_mensaje": datos.get('id_mensaje', nombre_archivo),
+                        "asunto": datos.get('asunto', 'Sin Asunto'),
+                        "remitente": datos.get('remitente', 'Desconocido'),
+                        "score_ia": resultado.get('score'),
+                        "razonamiento_ia": resultado.get('razonamiento', 'Sin detalles')
+                    }
+                    
+                    ruta_alerta_json = os.path.join(ALERTS_OUT_DIR, f"alerta_{nombre_archivo}")
+                    with open(ruta_alerta_json, 'w', encoding='utf-8') as f_out:
+                        json.dump(payload_teams, f_out, indent=4, ensure_ascii=False)
+                    
+                    logging.info(f"📂 Archivo de alerta creado en: {ALERTS_OUT_DIR}")
+                    # ------------------------------------------------
+                    
                 else:
-                    logging.info(f"✅ Ticket filtrado (Score {resultado.get('score', 'N/A')}). Registrado en DB.")
+                    logging.info(f"✅ Ticket filtrado (Score {resultado.get('score', 1)}).")
 
                 # 4. Archivar
                 shutil.move(ruta_completa, os.path.join(PROC_DIR, nombre_archivo))

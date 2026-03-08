@@ -1,15 +1,20 @@
 import sqlite3
-import logging
-from datetime import datetime
 import os
-import json 
+import json
+from datetime import datetime
+import logging
 
-DB_PATH = "data/incidencias.db"
+DB_PATH = os.path.join("data", "incidencias.db")
 
 def inicializar_db():
-    if not os.path.exists("data"): os.makedirs("data")
+    """Crea la base de datos y añade columnas de feedback si faltan."""
+    if not os.path.exists("data"):
+        os.makedirs("data")
+
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
+
+    # Crear tabla con el esquema completo
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS tickets (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -24,23 +29,41 @@ def inicializar_db():
             razonamiento TEXT,
             archivo TEXT,
             link_correo TEXT,
-            id_mensaje TEXT,
-            embedding_vector TEXT -- NUEVA COLUMNA RAG
+            id_mensaje TEXT UNIQUE,
+            embedding_vector TEXT,
+            score_humano INTEGER,
+            razonamiento_humano TEXT,
+            revisado INTEGER DEFAULT 0
         )
     ''')
+
+    # Migración: Añadir columnas por si la DB ya existía
+    columnas = [
+        ("score_humano", "INTEGER"),
+        ("razonamiento_humano", "TEXT"),
+        ("revisado", "INTEGER DEFAULT 0"),
+        ("embedding_vector", "TEXT")
+    ]
+    for col, tipo in columnas:
+        try:
+            cursor.execute(f"ALTER TABLE tickets ADD COLUMN {col} {tipo}")
+        except sqlite3.OperationalError:
+            pass 
+
     conn.commit()
     conn.close()
+    logging.info("🗄️ Base de datos inicializada y esquema verificado.")
 
 def guardar_ticket(datos, res_ia, archivo, vector_embedding):
+    """Guarda el análisis de la IA en la base de datos."""
     try:
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
         
-        # Convertimos la lista de números a un string JSON para guardarlo en SQLite
         vector_str = json.dumps(vector_embedding) if vector_embedding else "[]"
         
         cursor.execute('''
-            INSERT INTO tickets (
+            INSERT OR IGNORE INTO tickets (
                 fecha, remitente, destinatario, asunto, cuerpo, importancia, 
                 prediccion, score, razonamiento, archivo, link_correo, id_mensaje, embedding_vector
             )
@@ -58,9 +81,9 @@ def guardar_ticket(datos, res_ia, archivo, vector_embedding):
             archivo,
             datos.get('link_correo', ''),
             datos.get('id_mensaje', 'SIN_ID'),
-            vector_str # Guardamos el vector
+            vector_str
         ))
         conn.commit()
         conn.close()
     except Exception as e:
-        logging.error(f"❌ Error DB: {e}")
+        logging.error(f"❌ Error al guardar en DB: {e}")

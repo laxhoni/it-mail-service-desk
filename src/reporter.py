@@ -3,25 +3,24 @@ import requests
 import json
 from datetime import datetime
 import logging
+import urllib.parse
 
-def obtener_resumen_generativo(tickets_criticos):
-    """Pide a Llama 3.2 que lea los fallos y redacte una conclusión directiva"""
-    if not tickets_criticos:
-        return "No hay incidencias críticas sobre las que reportar."
+def obtener_resumen_generativo(tickets_pendientes):
+    """Pide a Llama 3.2 que analice el backlog pendiente"""
+    if not tickets_pendientes:
+        return "No hay incidencias pendientes sobre las que reportar."
 
-    # Preparamos un texto con los asuntos y la IA razonamientos
-    # (t[1] es asunto, t[3] es razonamiento)
-    texto_fallos = "\n".join([f"- Asunto: {t[1]} | Problema: {t[3]}" for t in tickets_criticos])
+    # t[1] es asunto, t[3] es razonamiento (basado en el SELECT de abajo)
+    texto_fallos = "\n".join([f"- Asunto: {t[1]} | Problema: {t[3]}" for t in tickets_pendientes])
     
     prompt = f"""
-    SISTEMA: Eres el Director de Soporte IT (CIO).
-    TAREA: Redacta un Resumen Ejecutivo muy breve (máximo 3 líneas) sobre las incidencias críticas de hoy.
+    SISTEMA: Eres el Director de Soporte IT.
+    TAREA: Redacta un Resumen Ejecutivo (máximo 3 líneas) sobre los tickets que se han quedado PENDIENTES hoy.
     INSTRUCCIONES:
-    1. Menciona si hay algún patrón (ej: "Múltiples fallos en la red Wi-Fi").
-    2. Sugiere una acción preventiva rápida.
-    3. Tono profesional y corporativo.
+    1. Identifica patrones si existen.
+    2. Tono corporativo y directo.
 
-    INCIDENCIAS DE HOY:
+    BACKLOG PENDIENTE:
     {texto_fallos}
     """
     
@@ -30,8 +29,8 @@ def obtener_resumen_generativo(tickets_criticos):
         r = requests.post(url, json={"model": "llama3.2", "prompt": prompt, "stream": False}, timeout=30)
         return r.json().get('response', 'No se pudo generar el resumen.')
     except Exception as e:
-        logging.error(f"Error generando resumen IA: {e}")
-        return "Error de conexión con el motor IA de resúmenes."
+        logging.error(f"Error en motor IA: {e}")
+        return "Resumen IA no disponible en este momento."
 
 def enviar_reporte_diario(webhook_url):
     db_path = "data/incidencias.db"
@@ -41,103 +40,101 @@ def enviar_reporte_diario(webhook_url):
         conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
         
-        # 1. Obtenemos TODOS los tickets de hoy (para la estadística general)
-        cursor.execute('SELECT score FROM tickets WHERE fecha LIKE ?', (f"{fecha_hoy}%",))
-        todos_hoy = cursor.fetchall()
-        total_tickets = len(todos_hoy)
+        # 1. ESTADÍSTICAS DE HOY (Ajustado a columna 'score')
+        cursor.execute('SELECT COUNT(*) FROM tickets WHERE fecha LIKE ?', (f"{fecha_hoy}%",))
+        total_hoy = cursor.fetchone()[0]
         
-        # 2. Obtenemos SOLO los críticos (Score 4 y 5), AHORA INCLUYENDO link_correo
+        cursor.execute('SELECT COUNT(*) FROM tickets WHERE fecha LIKE ? AND revisado = 0', (f"{fecha_hoy}%",))
+        total_pendientes = cursor.fetchone()[0]
+
+        # Aciertos (revisados donde el humano no cambió el score o no puso uno nuevo)
         cursor.execute('''
-            SELECT remitente, asunto, score, razonamiento, link_correo 
-            FROM tickets 
-            WHERE fecha LIKE ? AND score >= 4
+            SELECT COUNT(*) FROM tickets 
+            WHERE fecha LIKE ? AND revisado = 1 
+            AND (score_humano IS NULL OR score_humano = score)
         ''', (f"{fecha_hoy}%",))
-        tickets_criticos = cursor.fetchall()
-        total_criticos = len(tickets_criticos)
+        total_aciertos = cursor.fetchone()[0]
+
+        # Corregidos (revisados donde el humano cambió el score)
+        cursor.execute('''
+            SELECT COUNT(*) FROM tickets 
+            WHERE fecha LIKE ? AND revisado = 1 
+            AND score_humano IS NOT NULL AND score_humano != score
+        ''', (f"{fecha_hoy}%",))
+        total_corregidos = cursor.fetchone()[0]
         
+        # 2. OBTENER BACKLOG PENDIENTE (Usando nombres de columna estándar)
+        cursor.execute('''
+            SELECT remitente, asunto, score, razonamiento, id_mensaje 
+            FROM tickets 
+            WHERE revisado = 0
+            ORDER BY score DESC
+        ''')
+        tickets_pendientes = cursor.fetchall()
         conn.close()
 
-        # Calculamos porcentaje
-        porcentaje_criticos = round((total_criticos / total_tickets * 100), 1) if total_tickets > 0 else 0
-
-        # --- CONSTRUCCIÓN DE LA TARJETA TEAMS ---
+        # --- CONSTRUCCIÓN DE LA TARJETA ---
         cuerpo_tarjeta = [
             {
                 "type": "TextBlock",
-                "text": "📊 Reporte Ejecutivo de Soporte IT",
-                "weight": "Bolder",
-                "size": "ExtraLarge",
-                "color": "Accent",
-                "wrap": True
+                "text": "📊 Reporte de Rendimiento y Backlog IT",
+                "weight": "Bolder", "size": "ExtraLarge", "color": "Accent"
             },
             {
                 "type": "FactSet",
                 "facts": [
-                    {"title": "📅 Fecha:", "value": datetime.now().strftime('%d/%m/%Y')},
-                    {"title": "📥 Total Tickets Hoy:", "value": str(total_tickets)},
-                    {"title": "🔥 Tickets Críticos:", "value": f"{total_criticos} ({porcentaje_criticos}%)"}
+                    {"title": "📥 Total Hoy:", "value": str(total_hoy)},
+                    {"title": "✅ IA Correcta:", "value": str(total_aciertos)},
+                    {"title": "🛠️ IA Corregida:", "value": str(total_corregidos)},
+                    {"title": "⏳ PENDIENTES:", "value": f"**{total_pendientes}**"}
                 ]
             }
         ]
 
-        if total_criticos == 0:
+        if total_pendientes > 0:
+            resumen_ia = obtener_resumen_generativo(tickets_pendientes)
             cuerpo_tarjeta.append({
-                "type": "Container", "style": "good", "padding": "10px",
-                "items": [{"type": "TextBlock", "text": "🎉 ¡Excelente jornada! Cero incidencias críticas registradas hoy.", "weight": "Bolder", "wrap": True}]
-            })
-        else:
-            # Pedimos el resumen ejecutivo a la IA
-            resumen_ia = obtener_resumen_generativo(tickets_criticos)
-            
-            # Bloque del Resumen de la IA
-            cuerpo_tarjeta.append({
-                "type": "Container", "style": "emphasis", "padding": "10px", "spacing": "Medium",
+                "type": "Container", "style": "emphasis", "padding": "10px",
                 "items": [
-                    {"type": "TextBlock", "text": "🧠 Análisis Ejecutivo (Llama 3.2):", "weight": "Bolder"},
-                    {"type": "TextBlock", "text": resumen_ia, "wrap": True, "isSubtle": True, "fontType": "Monospace"}
+                    {"type": "TextBlock", "text": "🧠 Análisis de Pendientes:", "weight": "Bolder"},
+                    {"type": "TextBlock", "text": resumen_ia, "wrap": True, "fontType": "Monospace", "size": "Small"}
                 ]
             })
-            
-            cuerpo_tarjeta.append({"type": "TextBlock", "text": "Detalle de Incidencias Críticas:", "weight": "Bolder", "spacing": "Medium"})
-            
-            # Lista de tickets críticos
-            for ticket in tickets_criticos:
-                # Ahora desempaquetamos también el link_correo (5 variables)
-                remitente, asunto, score, razonamiento, link_correo = ticket
-                color = "attention" if score == 5 else "warning"
-                
-                # Elementos básicos de la incidencia
-                ticket_items = [
-                    {"type": "TextBlock", "text": f"🔥 [Score: {score}/5] {asunto}", "weight": "Bolder", "wrap": True},
-                    {"type": "TextBlock", "text": f"👤 {remitente} | 🤖 {razonamiento}", "wrap": True, "size": "Small"}
-                ]
-                
-                # Si existe el link, añadimos el botón a este bloque
-                if link_correo:
-                    ticket_items.append({
-                        "type": "ActionSet",
-                        "actions": [
-                            {
-                                "type": "Action.OpenUrl",
-                                "title": "📧 Abrir en Outlook",
-                                "url": link_correo
-                            }
-                        ]
-                    })
-                
-                # Añadimos el bloque completo a la tarjeta
-                cuerpo_tarjeta.append({
-                    "type": "Container", "style": color, "spacing": "Small", "padding": "10px",
-                    "items": ticket_items
-                })
 
+            for t in tickets_pendientes:
+                remitente, asunto, score, razonamiento, id_mensaje = t
+                id_encoded = urllib.parse.quote(id_mensaje) if id_mensaje else ""
+                url_outlook = f"https://outlook.live.com/mail/0/inbox/id/{id_encoded}"
+
+                cuerpo_tarjeta.append({
+                    "type": "Container", 
+                    "style": "attention" if score >= 4 else "default",
+                    "items": [
+                        {"type": "TextBlock", "text": f"🔥 [Score {score}] {asunto}", "weight": "Bolder"},
+                        {"type": "TextBlock", "text": f"👤 {remitente}", "isSubtle": True, "size": "Small"},
+                        {
+                            "type": "ActionSet",
+                            "actions": [{"type": "Action.OpenUrl", "title": "📧 Ver Correo", "url": url_outlook}]
+                        }
+                    ]
+                })
+        else:
+            cuerpo_tarjeta.append({"type": "TextBlock", "text": "✅ No hay tareas pendientes para mañana.", "color": "Good"})
+
+        # --- ENVÍO ---
         payload = {
             "type": "message",
-            "attachments": [{"contentType": "application/vnd.microsoft.card.adaptive", "content": {"type": "AdaptiveCard", "version": "1.4", "body": cuerpo_tarjeta}}]
+            "attachments": [{
+                "contentType": "application/vnd.microsoft.card.adaptive",
+                "content": {"type": "AdaptiveCard", "version": "1.4", "body": cuerpo_tarjeta}
+            }]
         }
-
-        requests.post(webhook_url, json=payload)
-        logging.info("📈 Reporte diario avanzado enviado a Teams con éxito.")
+        
+        response = requests.post(webhook_url, json=payload)
+        if response.status_code == 200:
+            logging.info("📈 Reporte enviado correctamente a Teams.")
+        else:
+            logging.error(f"❌ Error en Webhook: {response.status_code} - {response.text}")
 
     except Exception as e:
-        logging.error(f"❌ Error al generar el reporte diario: {e}")
+        logging.error(f"❌ Error crítico en reporte: {e}")

@@ -2,13 +2,13 @@ import os
 import logging
 from dotenv import load_dotenv
 
-# Importamos la función de reporte que creaste
+# Importamos la función de reporte que actualizamos
 from src.reporter import enviar_reporte_diario
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - [CRON JOB] - %(levelname)s - %(message)s')
 
 def ejecutar_reporte_diario():
-    logging.info("⏱️ Iniciando tarea programada: Reporte Diario.")
+    logging.info("⏱️ Iniciando tarea programada: Reporte de Rendimiento y Backlog.")
     
     load_dotenv()
     WEBHOOK = os.getenv("WEBHOOK_TEAMS")
@@ -18,12 +18,12 @@ def ejecutar_reporte_diario():
         return
 
     try:
-        logging.info("📊 Recopilando datos de incidencias críticas de hoy...")
+        logging.info("📊 Recopilando métricas de IA y tickets pendientes...")
         
         # Llama a la función que conecta a la DB y construye la tarjeta de Teams
         enviar_reporte_diario(WEBHOOK)
         
-        logging.info("✅ Reporte diario enviado a Teams con éxito. Finalizando proceso.")
+        logging.info("✅ Reporte de backlog enviado a Teams con éxito. Finalizando proceso.")
     except Exception as e:
         logging.error(f"❌ Fallo al enviar el reporte diario: {e}")
 
