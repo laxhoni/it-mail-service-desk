@@ -2,7 +2,6 @@ import requests
 import json
 import logging
 
-# IMPORTANTE: Importamos tu nuevo motor de búsqueda semántica
 from src.rag_engine import buscar_tickets_similares
 
 def analizar_con_ia(asunto, cuerpo):
@@ -13,26 +12,41 @@ def analizar_con_ia(asunto, cuerpo):
 
     if ejemplos_rag:
         for ej in ejemplos_rag:
-            if ej['similitud'] > 0.5:
+            if ej['similitud'] > 0.65:
                 logging.info(f"🧠 [RAG ACTIVO] He recordado un correo! Similitud: {ej['similitud']:.2f} | Asunto: {ej['asunto']}")
     else:
         logging.info("🧠 [RAG VACÍO] No he encontrado correos parecidos en mi memoria.")
 
-    # --- 2. CONSTRUIMOS LOS EJEMPLOS DINÁMICOS ---
+    # --- 2. CONSTRUIMOS LOS EJEMPLOS DINÁMICOS (BASADOS EN 'REVISADO') ---
     bloque_ejemplos = ""
     for i, ej in enumerate(ejemplos_rag):
-        # Solo usamos el ejemplo si la IA está segura de que se parecen (más del 50%)
-        if ej['similitud'] > 0.5:
+        if ej['similitud'] > 0.65:
+            
+            # NUEVA LÓGICA: Evaluamos si el ticket ya pasó por las manos de un humano
+            esta_revisado = ej.get('revisado', 0) == 1
+            
+            if esta_revisado:
+                # Si está revisado, priorizamos el feedback humano. Si está vacío (porque le dio a "Procesar sin cambios"), usamos el de la IA validado.
+                score_final = ej.get('score_humano') if ej.get('score_humano') is not None else ej.get('score')
+                razonamiento_final = ej.get('razonamiento_humano') if ej.get('razonamiento_humano') else ej.get('razonamiento')
+                origen_decision = "🗣️ EXPERTO HUMANO (VALIDADO - PRIORIDAD ABSOLUTA)"
+            else:
+                # Si no está revisado (está en el backlog), es solo una predicción de la IA
+                score_final = ej.get('score')
+                razonamiento_final = ej.get('razonamiento')
+                origen_decision = "🤖 PREDICCIÓN IA (Sin validar)"
+
             bloque_ejemplos += f"""
             EJEMPLO HISTÓRICO {i+1} (Relevancia Semántica: {ej['similitud']:.2f}):
             Asunto: {ej['asunto']}
             Cuerpo: {ej['cuerpo']}
-            => Score Asignado en el pasado: {ej['score']} | Predicción: {ej['prediccion']}
-            => Razonamiento: {ej['razonamiento']}
+            => Decisión basada en: {origen_decision}
+            => Score Asignado: {score_final}
+            => Razonamiento: {razonamiento_final}
             -------------------------
             """
 
-    # --- 3. PROMPT UNIFICADO: Escala + Restricciones + Memoria RAG ---
+    # --- 3. PROMPT UNIFICADO ---
     prompt = f"""
     SISTEMA: Eres un clasificador de tickets de soporte. 
     TU OBJETIVO: Evaluar la urgencia REAL basada SOLO en el contenido del mensaje.
@@ -51,8 +65,10 @@ def analizar_con_ia(asunto, cuerpo):
     - La prediccion debe ser "NEGATIVE" para scores 4 y 5.
 
     --- CASOS PREVIOS SIMILARES (MEMORIA RAG) ---
-    Aprende de cómo se puntuaron estos tickets en el pasado para mantener la coherencia en tu decisión:
-    {bloque_ejemplos if bloque_ejemplos else "No hay casos similares recientes. Usa tu propio criterio basándote estrictamente en las reglas."}
+    Aprende de cómo se puntuaron estos tickets en el pasado para mantener la coherencia.
+    ⚠️ REGLA CRÍTICA: Si ves que un caso histórico fue decidido por un "EXPERTO HUMANO (VALIDADO)", debes imitar esa lógica obligatoriamente. La decisión humana anula cualquier otra regla general.
+    
+    {bloque_ejemplos if bloque_ejemplos else "No hay casos similares recientes. Usa tu propio criterio basándote estrictamente en las reglas generales."}
     --- FIN DE LA MEMORIA ---
 
     TICKET A ANALIZAR:
@@ -73,22 +89,20 @@ def analizar_con_ia(asunto, cuerpo):
             "prompt": prompt, 
             "format": "json", 
             "stream": False
-        }, timeout=120) # Timeout subido a 120s para dar tiempo a Llama y al RAG
+        }, timeout=120)
         
         # Parseo de la respuesta
         respuesta_json = json.loads(r.json().get('response', '{}'))
         
-        # Limpieza de seguridad: Forzamos mayúsculas en la predicción
+        # Limpieza de seguridad
         res_ia = {
             "prediccion": str(respuesta_json.get("prediccion", "NO_QUEJA")).upper(),
             "score": int(respuesta_json.get("score", 1)),
             "razonamiento": respuesta_json.get("razonamiento", "Sin detalles adicionales.")
         }
 
-        # ⚠️ RETORNAMOS LA RESPUESTA LIMPIA Y EL VECTOR MATEMÁTICO
         return res_ia, vector_correo_actual
 
     except Exception as e:
         logging.error(f"❌ Error en motor IA: {e}")
-        # Si falla, devolvemos error y una lista vacía como vector
         return {"prediccion": "ERROR", "score": 1, "razonamiento": "Fallo de conexión o formato."}, []
