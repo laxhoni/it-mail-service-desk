@@ -79,26 +79,40 @@ def enviar_reporte_diario(webhook_url, fecha_desde=None, fecha_hasta=None):
             # Estado del Workflow
             cursor.execute('SELECT COUNT(*) FROM tickets WHERE fecha BETWEEN ? AND ? AND revisado = 0', (inicio_sql, fin_sql))
             total_pendientes = cursor.fetchone()[0]
-            total_revisados = total_tickets - total_pendientes
-
-            # Rendimiento IA (Precisión basada en validación humana)
+            
+            # --- RENDIMIENTO IA (Con Tolerancia de ±1 punto) ---
             cursor.execute('''
-                SELECT COUNT(*) FROM tickets 
-                WHERE fecha BETWEEN ? AND ? AND revisado = 1 
-                AND nivel_queja_humano IS NULL AND nivel_retraso_humano IS NULL
+                SELECT score, score_humano 
+                FROM tickets 
+                WHERE fecha BETWEEN ? AND ? AND revisado = 1
             ''', (inicio_sql, fin_sql))
-            total_aciertos = cursor.fetchone()[0]
+            tickets_revisados = cursor.fetchall()
 
-            cursor.execute('''
-                SELECT COUNT(*) FROM tickets 
-                WHERE fecha BETWEEN ? AND ? AND revisado = 1 
-                AND (nivel_queja_humano IS NOT NULL OR nivel_retraso_humano IS NOT NULL)
-            ''', (inicio_sql, fin_sql))
-            total_corregidos = cursor.fetchone()[0]
+            exactos = 0
+            leves = 0
+            criticos = 0
 
+            for t in tickets_revisados:
+                score_ia = t[0]
+                score_h = t[1]
+
+                # Si el humano no puso nota, asumimos que validó la de la IA
+                if score_h is None:
+                    exactos += 1
+                else:
+                    diferencia = abs(score_ia - score_h)
+                    if diferencia == 0:
+                        exactos += 1
+                    elif diferencia == 1:
+                        leves += 1
+                    else:
+                        criticos += 1
+
+            total_revisados = len(tickets_revisados)
             precision_ia = 0
             if total_revisados > 0:
-                precision_ia = round((total_aciertos / total_revisados) * 100, 1)
+                # La precisión operativa suma los exactos y los leves
+                precision_ia = round(((exactos + leves) / total_revisados) * 100, 1)
 
             # Analítica Avanzada: Top Remitente (El que más tickets genera)
             cursor.execute('''
@@ -164,7 +178,10 @@ def enviar_reporte_diario(webhook_url, fecha_desde=None, fecha_hasta=None):
                 "type": "FactSet",
                 "separator": True,
                 "facts": [
-                    {"title": "🎯 Precisión Motor IA:", "value": f"**{precision_ia}%** ({total_aciertos} aciertos / {total_corregidos} ajustes)"},
+                    {"title": "🎯 Precisión Operativa:", "value": f"**{precision_ia}%** (Margen ±1)"},
+                    {"title": "🟢 Aciertos Exactos:", "value": str(exactos)},
+                    {"title": "🟡 Desviaciones Leves:", "value": str(leves)},
+                    {"title": "🔴 Fallos Críticos:", "value": str(criticos)},
                     {"title": "📢 Top Solicitante:", "value": top_remitente}
                 ]
             }
@@ -227,4 +244,3 @@ def enviar_reporte_diario(webhook_url, fecha_desde=None, fecha_hasta=None):
     except Exception as e:
         logging.error(f"❌ Error crítico generando reporte: {e}")
 
-# (Nota: No incluimos if __name__ == "__main__" porque este archivo es una librería)
