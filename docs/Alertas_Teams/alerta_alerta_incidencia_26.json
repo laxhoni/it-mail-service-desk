@@ -1,9 +1,0 @@
-{
-    "id_mensaje": "ID-TEST-999",
-    "asunto": "OTRA VEZ LA IMPRESORA - ESTO ES INADMISIBLE",
-    "remitente": "pablo.mantenimiento@puertobcn.com",
-    "score_ia": 4,
-    "nivel_queja_ia": 7,
-    "nivel_retraso_ia": 8,
-    "razonamiento_ia": "El nivel de queja es alto debido a la agresividad y urgencia en el mensaje, indicando un impacto crítico y una falta de satisfacción con el servicio. El empleado expresa frustración extrema y exige una resolución inmediata, lo que sugiere que se trata de una emergencia. En cuanto al nivel de retraso, es extremadamente alto debido a la urgencia del mensaje y la necesidad de resolver el problema en tiempo real."
-}

@@ -15,12 +15,10 @@ def ejecutar_agente():
     load_dotenv()
     WEBHOOK = os.getenv("WEBHOOK_TEAMS")
     INPUT_DIR = os.getenv("CARPETA_DOCS", "docs")
-    PROC_DIR = "data/processed"
     
     # 1. Definir y crear la carpeta de salida para Power Automate
     ALERTS_OUT_DIR = os.path.join(INPUT_DIR, "Alertas_Teams")
     
-    if not os.path.exists(PROC_DIR): os.makedirs(PROC_DIR)
     if not os.path.exists(ALERTS_OUT_DIR): os.makedirs(ALERTS_OUT_DIR)
     
     inicializar_db()
@@ -66,9 +64,9 @@ def ejecutar_agente():
                 else:
                     logging.info(f"✅ Ticket filtrado (Score {resultado.get('score', 1)}).")
 
-                # 4. Archivar
-                shutil.move(ruta_completa, os.path.join(PROC_DIR, nombre_archivo))
-                
+                # 4. Eliminar el archivo original para evitar reprocesos (ya está guardado en DB)
+                os.remove(ruta_completa) 
+                logging.info(f"🗑️ Archivo original {nombre_archivo} eliminado de 'docs' (Guardado en DB).")                
             except Exception as e:
                 logging.error(f"❌ Error procesando {nombre_archivo}: {e}")
         
