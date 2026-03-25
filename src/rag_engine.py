@@ -34,26 +34,45 @@ def buscar_tickets_similares(asunto, cuerpo, top_k=2):
     try:
         conn = sqlite3.connect("data/incidencias.db")
         cursor = conn.cursor()
-        # Traemos todos los tickets que tengan un vector guardado
-        cursor.execute("SELECT asunto, cuerpo, prediccion, score, razonamiento, embedding_vector FROM tickets WHERE embedding_vector != '[]'")
+        
+        # ACTULIZACIÓN: Extraemos las nuevas métricas multidimensionales y el feedback humano
+        cursor.execute("""
+            SELECT asunto, cuerpo, prediccion, score, razonamiento, embedding_vector,
+                   revisado, score_humano, razonamiento_humano,
+                   nivel_queja, nivel_retraso, nivel_queja_humano, nivel_retraso_humano
+            FROM tickets 
+            WHERE embedding_vector != '[]'
+        """)
         filas = cursor.fetchall()
         conn.close()
 
         resultados = []
         for fila in filas:
-            asunto_bd, cuerpo_bd, prediccion, score, razonamiento, emb_str = fila
+            # Desempaquetado actualizado con las 13 columnas
+            asunto_bd, cuerpo_bd, prediccion, score, razonamiento, emb_str, \
+            revisado, score_humano, razonamiento_humano, \
+            nivel_queja, nivel_retraso, nivel_queja_humano, nivel_retraso_humano = fila
+            
             vector_bd = json.loads(emb_str)
             
             # Calculamos similitud
             similitud = similitud_coseno(vector_nuevo, vector_bd)
             
+            # ACTULIZACIÓN: Añadimos todos los campos al diccionario de resultados
             resultados.append({
                 "similitud": similitud,
                 "asunto": asunto_bd,
                 "cuerpo": cuerpo_bd,
                 "prediccion": prediccion,
                 "score": score,
-                "razonamiento": razonamiento
+                "razonamiento": razonamiento,
+                "revisado": revisado,
+                "score_humano": score_humano,
+                "razonamiento_humano": razonamiento_humano,
+                "nivel_queja": nivel_queja,
+                "nivel_retraso": nivel_retraso,
+                "nivel_queja_humano": nivel_queja_humano,
+                "nivel_retraso_humano": nivel_retraso_humano
             })
         
         # Ordenamos de mayor a menor similitud y nos quedamos con los 2 mejores

@@ -5,11 +5,8 @@ import shutil
 import logging
 from dotenv import load_dotenv
 
-# Tus importaciones exactas
 from src.setup_database import inicializar_db, guardar_ticket
 from src.prompt_complaints import analizar_con_ia
-# Nota: enviar_alerta_teams puedes mantenerlo si quieres un aviso extra, 
-# pero el flujo nuevo se dispara por ARCHIVO.
 from src.teams_bot import enviar_alerta_teams 
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - [WORKER] - %(levelname)s - %(message)s')
@@ -31,7 +28,6 @@ def ejecutar_agente():
     logging.info(f"🚀 WORKER INICIADO - Vigilando {INPUT_DIR}")
 
     while True:
-        # Filtramos para no procesar las subcarpetas, solo archivos JSON en la raíz de docs
         archivos = [f for f in os.listdir(INPUT_DIR) if f.endswith('.json') and os.path.isfile(os.path.join(INPUT_DIR, f))]
         
         for nombre_archivo in archivos:
@@ -50,12 +46,14 @@ def ejecutar_agente():
                 if resultado.get('score', 0) >= 4:
                     logging.warning(f"🔥 Score {resultado['score']} detectado. Generando alerta para Teams...")
                     
-                    # --- NUEVO: CREAR ARCHIVO PARA POWER AUTOMATE ---
+                    # --- NUEVO: PAYLOAD CON DOBLE VALIDACIÓN PARA LA TARJETA ---
                     payload_teams = {
                         "id_mensaje": datos.get('id_mensaje', nombre_archivo),
                         "asunto": datos.get('asunto', 'Sin Asunto'),
                         "remitente": datos.get('remitente', 'Desconocido'),
                         "score_ia": resultado.get('score'),
+                        "nivel_queja_ia": resultado.get('nivel_queja', 1),     # Nuevo
+                        "nivel_retraso_ia": resultado.get('nivel_retraso', 1), # Nuevo
                         "razonamiento_ia": resultado.get('razonamiento', 'Sin detalles')
                     }
                     
@@ -64,7 +62,6 @@ def ejecutar_agente():
                         json.dump(payload_teams, f_out, indent=4, ensure_ascii=False)
                     
                     logging.info(f"📂 Archivo de alerta creado en: {ALERTS_OUT_DIR}")
-                    # ------------------------------------------------
                     
                 else:
                     logging.info(f"✅ Ticket filtrado (Score {resultado.get('score', 1)}).")

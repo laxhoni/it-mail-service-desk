@@ -1,0 +1,9 @@
+{
+    "id_mensaje": "AQMkADAwATM0MDAAMS0xZjNkLTcxN2YtMDACLTAwCgBGAAADh1LZWO39uEK_N6SW1NFAkgcA7zxeU6VKBEaDRh8gqSNdsQAAAgEMAAAA7zxeU6VKBEaDRh8gqSNdsQAETdmDgAAAAA==",
+    "asunto": "URGENTE: Radar fuera de servicio",
+    "remitente": "jhonatan.barcos01@estudiant.upf.edu",
+    "score_ia": 5,
+    "nivel_queja_ia": 9,
+    "nivel_retraso_ia": 10,
+    "razonamiento_ia": "El nivel de queja es alto debido a la urgencia y emergencia del mensaje, indicando un impacto crítico para la seguridad de los barcos en espera. El empleado expresa frustración extrema y exige una resolución inmediata, lo que sugiere que se trata de una emergencia de seguridad nivel 1. En cuanto al nivel de retraso, es extremadamente alto debido a la urgencia del mensaje y la necesidad de resolver el problema en tiempo real, lo que pone en riesgo la seguridad de los barcos y las personas involucradas."
+}

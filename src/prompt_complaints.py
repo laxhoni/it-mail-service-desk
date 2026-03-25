@@ -1,108 +1,151 @@
 import requests
 import json
 import logging
+import os
+import math
 
 from src.rag_engine import buscar_tickets_similares
 
+def cargar_configuracion():
+    """
+    Lee el archivo de configuración dinámico (Contexto y Pesos).
+    Ruta estricta: data/config/config.json
+    """
+    ruta_config = os.path.join("data", "config", "config.json")
+    
+    config_default = {
+        "peso_queja": 0.5,
+        "peso_retraso": 0.5,
+        "contexto": "Actúa como un técnico de Service Desk estándar de nivel 1."
+    }
+    
+    try:
+        if os.path.exists(ruta_config):
+            with open(ruta_config, 'r', encoding='utf-8') as f:
+                datos = json.load(f)
+                logging.info(f"🧠 Memoria de Negocio cargada: Peso Queja={datos.get('peso_queja')} | Peso Retraso={datos.get('peso_retraso')}")
+                return {
+                    "peso_queja": float(datos.get("peso_queja", 0.5)),
+                    "peso_retraso": float(datos.get("peso_retraso", 0.5)),
+                    "contexto": str(datos.get("contexto", config_default["contexto"]))
+                }
+        else:
+            logging.warning(f"⚠️ Archivo no encontrado en {ruta_config}. Usando fallback por defecto.")
+    except Exception as e:
+        logging.error(f"❌ Error crítico leyendo config.json: {e}. Usando fallback.")
+    
+    return config_default
+
 def analizar_con_ia(asunto, cuerpo):
+    # --- 1. CARGA DE METADATOS Y REGLAS DE NEGOCIO ---
+    config = cargar_configuracion()
     url = "http://localhost:11434/api/generate"
     
-    # --- 1. EJECUTAMOS EL RAG ANTES DE CREAR EL PROMPT ---
+    # --- 2. RECUPERACIÓN DE MEMORIA (RAG) - AHORA CON VALIDACIÓN DOBLE ---
     ejemplos_rag, vector_correo_actual = buscar_tickets_similares(asunto, cuerpo)
+    bloque_ejemplos = ""
 
     if ejemplos_rag:
-        for ej in ejemplos_rag:
+        for i, ej in enumerate(ejemplos_rag):
             if ej['similitud'] > 0.65:
-                logging.info(f"🧠 [RAG ACTIVO] He recordado un correo! Similitud: {ej['similitud']:.2f} | Asunto: {ej['asunto']}")
+                # Prioridad absoluta al Ground Truth Humano
+                esta_revisado = ej.get('revisado', 0) == 1
+                
+                if esta_revisado:
+                    # Recuperamos la validación doble del humano (si existe), sino usamos la de la IA original
+                    queja_final = ej.get('nivel_queja_humano') if ej.get('nivel_queja_humano') is not None else ej.get('nivel_queja', 1)
+                    retraso_final = ej.get('nivel_retraso_humano') if ej.get('nivel_retraso_humano') is not None else ej.get('nivel_retraso', 1)
+                    score_final = ej.get('score_humano') if ej.get('score_humano') is not None else ej.get('score', 1)
+                    
+                    razonamiento_final = ej.get('razonamiento_humano') if ej.get('razonamiento_humano') else ej.get('razonamiento')
+                    origen = "🗣️ EXPERTO HUMANO (VALIDADO - CUMPLIR OBLIGATORIAMENTE)"
+                else:
+                    queja_final = ej.get('nivel_queja', 1)
+                    retraso_final = ej.get('nivel_retraso', 1)
+                    score_final = ej.get('score', 1)
+                    razonamiento_final = ej.get('razonamiento')
+                    origen = "🤖 PREDICCIÓN IA PREVIA"
+
+                # El prompt ahora enseña a la IA el desglose de 1 a 10 exacto que debe imitar
+                bloque_ejemplos += f"""
+                [CASO HISTÓRICO {i+1} | Similitud: {ej['similitud']:.2f}]
+                Asunto: {ej['asunto']}
+                Cuerpo: {ej['cuerpo']}
+                Origen de Decisión: {origen}
+                => Nivel de Queja (1-10): {queja_final}
+                => Nivel de Retraso (1-10): {retraso_final}
+                (Score General Ponderado resultante: {score_final}/5)
+                Razonamiento: {razonamiento_final}
+                -------------------------
+                """
+    # --- LOGGING EN CASO NO COINCIDENCIAS ---
+    if not bloque_ejemplos:
+        logging.info("ℹ️ RAG: No se han encontrado casos similares previos (o están por debajo del 0.65).")
     else:
-        logging.info("🧠 [RAG VACÍO] No he encontrado correos parecidos en mi memoria.")
-
-    # --- 2. CONSTRUIMOS LOS EJEMPLOS DINÁMICOS (BASADOS EN 'REVISADO') ---
-    bloque_ejemplos = ""
-    for i, ej in enumerate(ejemplos_rag):
-        if ej['similitud'] > 0.65:
-            
-            # NUEVA LÓGICA: Evaluamos si el ticket ya pasó por las manos de un humano
-            esta_revisado = ej.get('revisado', 0) == 1
-            
-            if esta_revisado:
-                # Si está revisado, priorizamos el feedback humano. Si está vacío (porque le dio a "Procesar sin cambios"), usamos el de la IA validado.
-                score_final = ej.get('score_humano') if ej.get('score_humano') is not None else ej.get('score')
-                razonamiento_final = ej.get('razonamiento_humano') if ej.get('razonamiento_humano') else ej.get('razonamiento')
-                origen_decision = "🗣️ EXPERTO HUMANO (VALIDADO - PRIORIDAD ABSOLUTA)"
-            else:
-                # Si no está revisado (está en el backlog), es solo una predicción de la IA
-                score_final = ej.get('score')
-                razonamiento_final = ej.get('razonamiento')
-                origen_decision = "🤖 PREDICCIÓN IA (Sin validar)"
-
-            bloque_ejemplos += f"""
-            EJEMPLO HISTÓRICO {i+1} (Relevancia Semántica: {ej['similitud']:.2f}):
-            Asunto: {ej['asunto']}
-            Cuerpo: {ej['cuerpo']}
-            => Decisión basada en: {origen_decision}
-            => Score Asignado: {score_final}
-            => Razonamiento: {razonamiento_final}
-            -------------------------
-            """
-
-    # --- 3. PROMPT UNIFICADO ---
-    prompt = f"""
-    SISTEMA: Eres un clasificador de tickets de soporte. 
-    TU OBJETIVO: Evaluar la urgencia REAL basada SOLO en el contenido del mensaje.
-
-    ESCALA DE SCORE (1-5):
-    1: POSITIVO. Agradecimientos o saludos cordiales. (Ej: "hola", "buenos días", "gracias").
-    2: DUDA LEVE. Preguntas generales sin urgencia.
-    3: SEGUIMIENTO. Consultas sobre estado de trámites.
-    4: QUEJA. Frustración, mal servicio, fallos técnicos.
-    5: CRÍTICO. Amenazas legales, insultos o reclamaciones oficiales.
-
-    REGLAS DE ORO:
-    - Si el mensaje es muy corto (ej: "hola", "test", "buenos días") sin más texto, el score DEBE SER 1 o 2.
-    - NO asumas urgencia si no hay palabras de queja explícitas.
-    - La prediccion debe ser "NO_QUEJA" para scores 1, 2 y 3.
-    - La prediccion debe ser "NEGATIVE" para scores 4 y 5.
-
-    --- CASOS PREVIOS SIMILARES (MEMORIA RAG) ---
-    Aprende de cómo se puntuaron estos tickets en el pasado para mantener la coherencia.
-    ⚠️ REGLA CRÍTICA: Si ves que un caso histórico fue decidido por un "EXPERTO HUMANO (VALIDADO)", debes imitar esa lógica obligatoriamente. La decisión humana anula cualquier otra regla general.
+        # Esto te dirá cuántos casos le está enviando realmente a la IA
+        num_casos = bloque_ejemplos.count("[CASO HISTÓRICO")
+        logging.info(f"🧠 RAG: Memoria activada. Inyectando {num_casos} casos similares al prompt.")
+    # -----------------------------------------------------
     
-    {bloque_ejemplos if bloque_ejemplos else "No hay casos similares recientes. Usa tu propio criterio basándote estrictamente en las reglas generales."}
-    --- FIN DE LA MEMORIA ---
+    # --- 3. INYECCIÓN DEL META-PROMPT MULTIDIMENSIONAL ---
+    prompt = f"""
+    SISTEMA: Eres un modelo analítico avanzado de clasificación de Service Desk IT.
+    
+    [INSTRUCCIONES CORE DEL NEGOCIO (PRIORIDAD MÁXIMA)]
+    {config['contexto']}
 
-    TICKET A ANALIZAR:
+    TAREA: Evalúa el ticket actual en dos dimensiones matemáticas (escala 1-10).
+
+    DIMENSIÓN 1: NIVEL DE QUEJA / IMPACTO (1-10)
+    1-3: Consultas, solicitudes estándar, agradecimientos.
+    4-7: Frustración moderada, degradación de servicio, bloqueos individuales.
+    8-10: Lenguaje agresivo/urgente, impacto crítico, VIPs bloqueados, amenaza de negocio.
+
+    DIMENSIÓN 2: NIVEL DE RETRASO / SLA (1-10)
+    1-3: Sin prisa, sin tiempo de espera previo.
+    4-7: Seguimiento de tickets antiguos, necesita respuesta en el día.
+    8-10: Interrupción en tiempo real, caída de sistemas core, exige resolución inmediata.
+
+    [MEMORIA HISTÓRICA (RAG)]
+    Aprende de estos casos para no cometer errores pasados. Presta especial atención a los niveles de Queja y Retraso asignados por el EXPERTO HUMANO.
+    {bloque_ejemplos if bloque_ejemplos else "Sin memoria relevante para este caso."}
+
+    [TICKET ACTUAL]
     Asunto: {asunto}
     Cuerpo: {cuerpo}
 
-    RESPONDE SOLO EN JSON:
+    RESPONDE ESTRICTAMENTE EN ESTE FORMATO JSON:
     {{
-      "prediccion": "NEGATIVE" / "NO_QUEJA",
-      "score": 1-5,
-      "razonamiento": "Justificación breve"
+      "nivel_queja": <int 1-10>,
+      "nivel_retraso": <int 1-10>,
+      "razonamiento": "<justificación analítica concisa>"
     }}
     """
     
     try:
-        r = requests.post(url, json={
-            "model": "llama3.2", 
-            "prompt": prompt, 
-            "format": "json", 
-            "stream": False
-        }, timeout=120)
-        
-        # Parseo de la respuesta
+        r = requests.post(url, json={"model": "llama3.2", "prompt": prompt, "format": "json", "stream": False}, timeout=120)
         respuesta_json = json.loads(r.json().get('response', '{}'))
         
-        # Limpieza de seguridad
-        res_ia = {
-            "prediccion": str(respuesta_json.get("prediccion", "NO_QUEJA")).upper(),
-            "score": int(respuesta_json.get("score", 1)),
-            "razonamiento": respuesta_json.get("razonamiento", "Sin detalles adicionales.")
-        }
+        # --- 4. EXTRACCIÓN Y CÁLCULO PONDERADO ---
+        nivel_queja = int(respuesta_json.get("nivel_queja", 1))
+        nivel_retraso = int(respuesta_json.get("nivel_retraso", 1))
+        razonamiento = respuesta_json.get("razonamiento", "Análisis no detallado.")
 
-        return res_ia, vector_correo_actual
+        # Ecuación de valor de negocio
+        score_combinado_10 = (nivel_queja * config['peso_queja']) + (nivel_retraso * config['peso_retraso'])
+        
+        # Reducción a escala de 1 a 5 (para compatibilidad de base de datos)
+        score_final_5 = max(1, min(5, math.ceil(score_combinado_10 / 2.0)))
+
+        # Actualizamos el diccionario con los nuevos datos
+        return {
+            "prediccion": "NEGATIVE" if score_final_5 >= 4 else "NO_QUEJA",
+            "score": score_final_5,
+            "nivel_queja": nivel_queja,
+            "nivel_retraso": nivel_retraso,
+            "razonamiento": razonamiento
+        }, vector_correo_actual
 
     except Exception as e:
-        logging.error(f"❌ Error en motor IA: {e}")
-        return {"prediccion": "ERROR", "score": 1, "razonamiento": "Fallo de conexión o formato."}, []
+        logging.error(f"❌ Error en inferencia IA: {e}")
+        return {"prediccion": "ERROR", "score": 1, "nivel_queja": 1, "nivel_retraso": 1, "razonamiento": "Error de procesamiento."}, []
