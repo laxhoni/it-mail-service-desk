@@ -7,7 +7,6 @@ from dotenv import load_dotenv
 
 from src.setup_database import inicializar_db, guardar_ticket
 from src.prompt_complaints import analizar_con_ia
-from src.teams_bot import enviar_alerta_teams 
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - [WORKER] - %(levelname)s - %(message)s')
 
