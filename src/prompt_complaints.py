@@ -123,7 +123,20 @@ def analizar_con_ia(asunto, cuerpo):
     """
     
     try:
-        r = requests.post(url, json={"model": "llama3.2", "prompt": prompt, "format": "json", "stream": False}, timeout=120)
+        r = requests.post(
+            url, 
+            json={
+                "model": "llama3.2", 
+                "prompt": prompt, 
+                "format": "json", 
+                "stream": False,
+                "options": {
+                    "temperature": 0.0
+                }
+            }, 
+            timeout=120
+        )
+        
         respuesta_json = json.loads(r.json().get('response', '{}'))
         
         # --- 4. EXTRACCIÓN Y CÁLCULO PONDERADO ---

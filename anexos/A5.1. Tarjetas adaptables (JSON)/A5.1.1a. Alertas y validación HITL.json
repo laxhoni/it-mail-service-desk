@@ -1,0 +1,103 @@
+{
+    "type": "AdaptiveCard",
+    "body": [
+        {
+            "type": "TextBlock",
+            "text": "🚨 ALERTA DE INCIDENCIA",
+            "weight": "Bolder",
+            "size": "Large",
+            "color": "Attention"
+        },
+        {
+            "type": "TextBlock",
+            "text": "Prioridad IA detectada: Nivel @{body('Análisis_del_archivo_JSON')?['score_ia']}/5",
+            "isSubtle": true,
+            "spacing": "None"
+        },
+        {
+            "type": "FactSet",
+            "facts": [
+                { "title": "👤 De:", "value": "@{body('Análisis_del_archivo_JSON')?['remitente']}" },
+                { "title": "📌 Asunto:", "value": "@{body('Análisis_del_archivo_JSON')?['asunto']}" }
+            ],
+            "spacing": "Medium"
+        },
+        {
+            "type": "TextBlock",
+            "text": "**🧠 Análisis de la IA:**",
+            "weight": "Bolder",
+            "spacing": "Medium"
+        },
+        {
+            "type": "TextBlock",
+            "text": "@{body('Análisis_del_archivo_JSON')?['razonamiento_ia']}",
+            "wrap": true,
+            "fontType": "Monospace",
+            "color": "Warning"
+        },
+        {
+            "type": "FactSet",
+            "facts": [
+                { "title": "🤬 Queja IA:", "value": "@{body('Análisis_del_archivo_JSON')?['nivel_queja_ia']}/10" },
+                { "title": "⏳ Retraso IA:", "value": "@{body('Análisis_del_archivo_JSON')?['nivel_retraso_ia']}/10" }
+            ],
+            "spacing": "Small"
+        },
+        {
+            "type": "Container",
+            "style": "emphasis",
+            "spacing": "Medium",
+            "items": [
+                {
+                    "type": "TextBlock",
+                    "text": "🛠️ **Validación Multidimensional (Human-in-the-Loop)**",
+                    "weight": "Bolder"
+                },
+                {
+                    "type": "Input.Number",
+                    "id": "nivel_queja_humano",
+                    "label": "1️⃣ Corregir Nivel de Queja (1-10):",
+                    "min": 1,
+                    "max": 10,
+                    "value": "@{body('Análisis_del_archivo_JSON')?['nivel_queja_ia']}",
+                    "errorMessage": "El valor debe estar entre 1 y 10."
+                },
+                {
+                    "type": "Input.Number",
+                    "id": "nivel_retraso_humano",
+                    "label": "2️⃣ Corregir Nivel de Urgencia/Retraso (1-10):",
+                    "min": 1,
+                    "max": 10,
+                    "value": "@{body('Análisis_del_archivo_JSON')?['nivel_retraso_ia']}",
+                    "errorMessage": "El valor debe estar entre 1 y 10."
+                },
+                {
+                    "type": "Input.Text",
+                    "id": "razonamiento_humano",
+                    "label": "Comentario de corrección:",
+                    "isMultiline": true
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "type": "Action.OpenUrl",
+            "title": "📧 Responder",
+            "url": "https://outlook.live.com/mail/0/inbox/id/@{encodeUriComponent(body('Análisis_del_archivo_JSON')?['id_mensaje'])}"
+        },
+        {
+            "type": "Action.Submit",
+            "title": "📤 Enviar Feedback",
+            "style": "positive",
+            "data": { "accion": "feedback" }
+        },
+        {
+            "type": "Action.Submit",
+            "title": "✅ PROCESAR (Sin cambios)",
+            "data": { "accion": "procesar" }
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.4"
+}

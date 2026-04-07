@@ -1,0 +1,28 @@
+{
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "type": "AdaptiveCard",
+    "version": "1.4",
+    "body": [
+        {
+            "type": "TextBlock",
+            "text": "📊 Command Center IT",
+            "weight": "Bolder",
+            "size": "ExtraLarge",
+            "color": "Accent"
+        },
+        {
+            "type": "TextBlock",
+            "text": "El panel de control interactivo está listo. Haz clic en el botón inferior para acceder a la visualización de datos en tiempo real y triaje HITL.",
+            "wrap": true,
+            "spacing": "Medium"
+        }
+    ],
+    "actions": [
+        {
+            "type": "Action.OpenUrl",
+            "title": "Abrir Dashboard Directivo 🚀",
+            "url": "https://app.powerbi.com/MobileRedirect.html?Action=OpenReport&reportObjectId=693f7599-fcd2-4de4-9d47-4677dd45aaaa&Context=pbiTeams&groupObjectId=f54aac6d-9a80-47d0-b3f3-ffcd3993edd9&pbi_source=pbiTeamsBot&buttonType=OpenButton&teamsOpenInNewWindow=1",
+            "style": "positive"
+        }
+    ]
+}

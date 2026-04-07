@@ -46,7 +46,7 @@ def procesar_archivo(ruta_archivo):
         score_humano_final = max(1, min(5, math.ceil(score_combinado / 2.0)))
 
         # --- Actualizar Base de Datos (Múltiples columnas) ---
-        conn = sqlite3.connect(DB_PATH)
+        conn = sqlite3.connect(DB_PATH, timeout=15.0)
         cursor = conn.cursor()
         cursor.execute("""
             UPDATE tickets 

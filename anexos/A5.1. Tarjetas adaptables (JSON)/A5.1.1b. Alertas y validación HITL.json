@@ -1,0 +1,70 @@
+{
+    "type": "AdaptiveCard",
+    "body": [
+        {
+            "type": "TextBlock",
+            "text": "✅ FEEDBACK REGISTRADO",
+            "weight": "Bolder",
+            "size": "Large",
+            "color": "Good"
+        },
+        {
+            "type": "TextBlock",
+            "text": "El sistema ha guardado tu corrección multidimensional. La incidencia sigue abierta para su resolución.",
+            "isSubtle": true,
+            "wrap": true,
+            "spacing": "None"
+        },
+        {
+            "type": "FactSet",
+            "facts": [
+                { "title": "👤 De:", "value": "@{body('Análisis_del_archivo_JSON')?['remitente']}" },
+                { "title": "📌 Asunto:", "value": "@{body('Análisis_del_archivo_JSON')?['asunto']}" },
+                { "title": "🤖 Score General IA:", "value": "@{body('Análisis_del_archivo_JSON')?['score_ia']}/5" },
+                { "title": "🤬 Tu Nivel Queja:", "value": "@{outputs('Publicar_tarjeta_adaptable_y_esperar_una_respuesta')?['body/data/nivel_queja_humano']}/10" },
+                { "title": "⏳ Tu Nivel Retraso:", "value": "@{outputs('Publicar_tarjeta_adaptable_y_esperar_una_respuesta')?['body/data/nivel_retraso_humano']}/10" }
+            ],
+            "spacing": "Medium"
+        },
+        {
+            "type": "TextBlock",
+            "text": "**🧠 Análisis de la IA:**",
+            "weight": "Bolder",
+            "spacing": "Medium"
+        },
+        {
+            "type": "TextBlock",
+            "text": "@{body('Análisis_del_archivo_JSON')?['razonamiento_ia']}",
+            "wrap": true,
+            "fontType": "Monospace",
+            "color": "Warning"
+        },
+        {
+            "type": "TextBlock",
+            "text": "**💬 Tu Comentario de Corrección:**",
+            "weight": "Bolder",
+            "spacing": "Medium"
+        },
+        {
+            "type": "TextBlock",
+            "text": "@{outputs('Publicar_tarjeta_adaptable_y_esperar_una_respuesta')?['body/data/razonamiento_humano']}",
+            "wrap": true,
+            "color": "Accent"
+        }
+    ],
+    "actions": [
+        {
+            "type": "Action.OpenUrl",
+            "title": "📧 Responder en Outlook",
+            "url": "https://outlook.live.com/mail/0/inbox/id/@{encodeUriComponent(body('Análisis_del_archivo_JSON')?['id_mensaje'])}"
+        },
+        {
+            "type": "Action.Submit",
+            "title": "✅ Finalizar y PROCESAR",
+            "style": "positive",
+            "data": { "accion": "procesar" }
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.4"
+}

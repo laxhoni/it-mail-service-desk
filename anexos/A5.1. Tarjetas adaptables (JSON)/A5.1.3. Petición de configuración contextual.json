@@ -1,0 +1,45 @@
+{
+    "type": "AdaptiveCard",
+    "body": [
+        {
+            "type": "TextBlock",
+            "text": "⚙️ Onboarding Dinámico: IA de Triage",
+            "weight": "Bolder",
+            "size": "Large",
+            "color": "Accent"
+        },
+        {
+            "type": "TextBlock",
+            "text": "Configura el comportamiento del Service Desk usando lenguaje natural. La IA leerá tus instrucciones, deducirá los pesos de urgencia y auto-escribirá sus propias reglas.",
+            "wrap": true,
+            "isSubtle": true
+        },
+        {
+            "type": "FactSet",
+            "facts": [
+                {
+                    "title": "💡 Tip:",
+                    "value": "Menciona tus SLAs, qué departamentos son VIP y qué aplicaciones no pueden caerse nunca."
+                }
+            ]
+        },
+        {
+            "type": "Input.Text",
+            "id": "descripcion_empresa",
+            "label": "📝 Describe el contexto y las prioridades de tu empresa:",
+            "isMultiline": true,
+            "placeholder": "Ej: Somos una clínica dental. Si falla el software de rayos X o la agenda de citas, es crítico. Si falla la impresora del despacho, puede esperar...",
+            "isRequired": true,
+            "errorMessage": "⚠️ La descripción no puede estar vacía."
+        }
+    ],
+    "actions": [
+        {
+            "type": "Action.Submit",
+            "title": "🚀 Generar Configuración IA",
+            "style": "positive"
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.4"
+}

@@ -1,0 +1,35 @@
+{
+  "type": "AdaptiveCard",
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.4",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "📊 Solicitar Reporte IT",
+      "weight": "Bolder",
+      "size": "Large"
+    },
+    {
+      "type": "TextBlock",
+      "text": "Selecciona el rango de fechas para analizar el rendimiento del Service Desk.",
+      "isSubtle": true,
+      "wrap": true
+    },
+    {
+      "type": "Input.Date",
+      "id": "fecha_desde",
+      "label": "📅 Fecha Desde:"
+    },
+    {
+      "type": "Input.Date",
+      "id": "fecha_hasta",
+      "label": "📅 Fecha Hasta:"
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Generar Informe"
+    }
+  ]
+}

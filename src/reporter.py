@@ -67,7 +67,7 @@ def enviar_reporte_diario(webhook_url, fecha_desde=None, fecha_hasta=None):
 
     try:
         # 2. EXTRACCIÓN DE MÉTRICAS (Uso de 'with' asegura el cierre de la DB)
-        with sqlite3.connect(DB_PATH) as conn:
+        with sqlite3.connect(DB_PATH, timeout=15.0) as conn:
             cursor = conn.cursor()
             
             # Métricas Generales

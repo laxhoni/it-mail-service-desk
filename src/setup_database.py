@@ -11,7 +11,7 @@ def inicializar_db():
     if not os.path.exists("data"):
         os.makedirs("data")
 
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(DB_PATH, timeout=15.0)
     cursor = conn.cursor()
 
     # Crear tabla con el esquema completo (AÑADIDAS COLUMNAS DE DOBLE VALIDACIÓN)
