@@ -1,5 +1,5 @@
 {
-    "peso_queja": 0.8,
-    "peso_retraso": 0.2,
+    "peso_queja": 0.65,
+    "peso_retraso": 0.35,
     "contexto": "Correos de MedTech Solutions: prioriza quejas de clientes y problemas operativos, ignora quejas de jefes de servicio o amenazas legales"
 }
