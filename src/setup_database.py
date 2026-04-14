@@ -60,7 +60,7 @@ def inicializar_db():
 
     conn.commit()
     conn.close()
-    logging.info("🗄️ Base de datos inicializada y esquema verificado con doble validación.")
+    logging.info("[*] Base de datos inicializada y esquema verificado con doble validación.")
 
 def guardar_ticket(datos, res_ia, archivo, vector_embedding):
     """Guarda el análisis de la IA en la base de datos."""
@@ -92,10 +92,10 @@ def guardar_ticket(datos, res_ia, archivo, vector_embedding):
             datos.get('link_correo', ''),
             datos.get('id_mensaje', 'SIN_ID'),
             vector_str,
-            res_ia.get('nivel_queja', 1),     # NUEVO: Guarda predicción IA
-            res_ia.get('nivel_retraso', 1)    # NUEVO: Guarda predicción IA
+            res_ia.get('nivel_queja', 1),     
+            res_ia.get('nivel_retraso', 1)    
         ))
         conn.commit()
         conn.close()
     except Exception as e:
-        logging.error(f"❌ Error al guardar en DB: {e}")
+        logging.error(f"[*] Error al guardar en DB: {e}")

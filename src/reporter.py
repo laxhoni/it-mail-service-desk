@@ -38,11 +38,11 @@ def obtener_resumen_generativo(tickets_pendientes, fecha_texto):
     """
     
     try:
-        logging.info("🧠 Solicitando análisis de backlog a Llama 3.2...")
+        logging.info("[*] Solicitando análisis de backlog a Llama 3.2...")
         r = requests.post(OLLAMA_URL, json={"model": "llama3.2", "prompt": prompt, "stream": False}, timeout=45)
         return r.json().get('response', 'Análisis no disponible temporalmente.')
     except Exception as e:
-        logging.error(f"❌ Error conectando con motor IA local: {e}")
+        logging.error(f"[*] Error conectando con motor IA local: {e}")
         return "El motor de análisis generativo no está disponible."
 
 def enviar_reporte_diario(webhook_url, fecha_desde=None, fecha_hasta=None):
@@ -63,7 +63,7 @@ def enviar_reporte_diario(webhook_url, fecha_desde=None, fecha_hasta=None):
     fin_sql = f"{f_hasta} 23:59:59"
     
     texto_fechas = f"{f_desde}" if f_desde == f_hasta else f"{f_desde} al {f_hasta}"
-    logging.info(f"📊 Generando reporte para el periodo: {texto_fechas}")
+    logging.info(f"[*] Generando reporte para el periodo: {texto_fechas}")
 
     try:
         # 2. EXTRACCIÓN DE MÉTRICAS (Uso de 'with' asegura el cierre de la DB)
@@ -238,9 +238,9 @@ def enviar_reporte_diario(webhook_url, fecha_desde=None, fecha_hasta=None):
         response = requests.post(webhook_url, json=payload)
         # requests.response.ok incluye cualquier código de éxito (200, 201, 202...)
         if response.ok: 
-            logging.info("📈 Reporte enviado y aceptado correctamente por Teams.")
+            logging.info("[*] Reporte enviado y aceptado correctamente por Teams.")
         else:
-            logging.error(f"❌ Error en Webhook Teams: {response.status_code} - {response.text}")
+            logging.error(f"[*] Error en Webhook Teams: {response.status_code} - {response.text}")
     except Exception as e:
-        logging.error(f"❌ Error crítico generando reporte: {e}")
+        logging.error(f"[*] Error crítico generando reporte: {e}")
 

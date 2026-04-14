@@ -37,7 +37,7 @@ def procesar_archivo(ruta_archivo):
         razonamiento = data.get('razonamiento_humano', 'Sin comentarios')
 
         if not id_msg or queja_humana is None or retraso_humano is None:
-            logging.warning(f"⚠️ Archivo mal formado (Faltan dimensiones): {os.path.basename(ruta_archivo)}")
+            logging.warning(f"[*] Archivo mal formado (Faltan dimensiones): {os.path.basename(ruta_archivo)}")
             return False
 
         # --- MATEMÁTICA: Calculamos el Score 1-5 final del humano ---
@@ -63,22 +63,22 @@ def procesar_archivo(ruta_archivo):
         conn.close()
 
         if filas_afectadas > 0:
-            logging.info(f"✅ DB actualizada con Doble Validación para ticket: {id_msg}. Score Final: {score_humano_final}")
+            logging.info(f"[*] DB actualizada con Doble Validación para ticket: {id_msg}. Score Final: {score_humano_final}")
             return True
         else:
-            logging.error(f"❓ No se encontró el ID {id_msg} en la base de datos.")
+            logging.error(f"[*] No se encontró el ID {id_msg} en la base de datos.")
             return True # Retornamos True para que borre el archivo huérfano
 
     except Exception as e:
-        logging.error(f"❌ Error procesando {os.path.basename(ruta_archivo)}: {e}")
+        logging.error(f"[*] Error procesando {os.path.basename(ruta_archivo)}: {e}")
         return False
 
 def ejecutar_feedback_worker():
     if not os.path.exists(RUTA_FEEDBACK): os.makedirs(RUTA_FEEDBACK)
     
     logging.info("-" * 50)
-    logging.info("🚀 WORKER 2 INICIADO - Escaneando Feedback Multidimensional 24/7...")
-    logging.info(f"📂 Vigilando: {RUTA_FEEDBACK}")
+    logging.info("WORKER 2 INICIADO - Escaneando Feedback Multidimensional 24/7...")
+    logging.info(f"[*] Vigilando: {RUTA_FEEDBACK}")
     logging.info("-" * 50)
 
     while True:
@@ -92,9 +92,9 @@ def ejecutar_feedback_worker():
             if exito:
                 try:
                     os.remove(ruta_completa)
-                    logging.info(f"🗑️ Archivo de feedback eliminado: {nombre_archivo}")
+                    logging.info(f"[*] Archivo de feedback eliminado: {nombre_archivo}")
                 except Exception as e:
-                    logging.error(f"No se pudo eliminar el archivo: {e}")
+                    logging.error(f"[*] No se pudo eliminar el archivo: {e}")
         
         time.sleep(5)
 

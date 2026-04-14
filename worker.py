@@ -22,7 +22,7 @@ def ejecutar_agente():
     
     inicializar_db()
     
-    logging.info(f"🚀 WORKER INICIADO - Vigilando {INPUT_DIR}")
+    logging.info(f"WORKER INICIADO - Vigilando {INPUT_DIR}")
 
     while True:
         archivos = [f for f in os.listdir(INPUT_DIR) if f.endswith('.json') and os.path.isfile(os.path.join(INPUT_DIR, f))]
@@ -41,7 +41,7 @@ def ejecutar_agente():
                 
                 # 3. Filtro de Escalación
                 if resultado.get('score', 0) >= 4:
-                    logging.warning(f"🔥 Score {resultado['score']} detectado. Generando alerta para Teams...")
+                    logging.warning(f"[*] Score {resultado['score']} detectado. Generando alerta para Teams...")
                     
                     # --- NUEVO: PAYLOAD CON DOBLE VALIDACIÓN PARA LA TARJETA ---
                     payload_teams = {
@@ -58,16 +58,16 @@ def ejecutar_agente():
                     with open(ruta_alerta_json, 'w', encoding='utf-8') as f_out:
                         json.dump(payload_teams, f_out, indent=4, ensure_ascii=False)
                     
-                    logging.info(f"📂 Archivo de alerta creado en: {ALERTS_OUT_DIR}")
+                    logging.info(f"[*] Archivo de alerta creado en: {ALERTS_OUT_DIR}")
                     
                 else:
-                    logging.info(f"✅ Ticket filtrado (Score {resultado.get('score', 1)}).")
+                    logging.info(f"[*] Ticket filtrado (Score {resultado.get('score', 1)}).")
 
                 # 4. Eliminar el archivo original para evitar reprocesos (ya está guardado en DB)
                 os.remove(ruta_completa) 
-                logging.info(f"🗑️ Archivo original {nombre_archivo} eliminado de 'docs' (Guardado en DB).")                
+                logging.info(f"[*] Archivo original {nombre_archivo} eliminado de 'docs' (Guardado en DB).")                
             except Exception as e:
-                logging.error(f"❌ Error procesando {nombre_archivo}: {e}")
+                logging.error(f"[*] Error procesando {nombre_archivo}: {e}")
         
         time.sleep(5)
 
