@@ -128,7 +128,7 @@ for i in barra_progreso:
         lista_json.append(t_json)
         lista_csv.append(f_csv)
         # Actualiza el texto auxiliar de la barra con los datos del último ticket
-        barra_progreso.set_postfix_str(f"✅ {t_json['id']} [Q:{t_json['gt_queja']} R:{t_json['gt_retraso']}]")
+        barra_progreso.set_postfix_str(f"[*] {t_json['id']} [Q:{t_json['gt_queja']} R:{t_json['gt_retraso']}]")
 
 with open("data/dataset_gold_standard.json", "w", encoding="utf-8") as f:
     json.dump(lista_json, f, indent=4, ensure_ascii=False)

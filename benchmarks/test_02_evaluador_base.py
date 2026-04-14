@@ -93,7 +93,7 @@ def obtener_prediccion_llama(asunto, cuerpo):
 # PROCESAMIENTO DE DATOS Y EXPORTACIÓN
 # ==========================================
 
-print("🚀 Iniciando Evaluación Test 02...")
+print("Iniciando Evaluación Test 02...")
 
 tickets_a_procesar = []
 y_true_q = []
@@ -112,7 +112,7 @@ with open(PATH_CSV_ENTRADA, mode="r", encoding="utf-8") as f:
             tickets_a_procesar.append(row)
 
 if not tickets_a_procesar:
-    print("❌ Error: No se encontraron datos válidos en el CSV.")
+    print("[*] Error: No se encontraron datos válidos en el CSV.")
     exit()
 
 y_pred_q = []
@@ -128,7 +128,7 @@ cabeceras_salida = [
 ]
 registro_detallado.append(cabeceras_salida)
 
-print(f"📊 Evaluando {len(tickets_a_procesar)} tickets con Llama 3.2...")
+print(f"[*] Evaluando {len(tickets_a_procesar)} tickets con Llama 3.2...")
 barra_progreso = tqdm(tickets_a_procesar, desc="Progreso", unit="ticket", colour="blue", ncols=100)
 
 for i, ticket in enumerate(barra_progreso):
@@ -183,16 +183,16 @@ mae_r, rmse_r, acc_r, fc_r, kappa_r = calcular_metricas(y_true_r, y_pred_r)
 # ==========================================
 
 print("\n" + "="*60)
-print("🏆 RESULTADOS DEL TEST 02 (EVALUADOR BASE)")
+print("RESULTADOS DEL TEST 02 (EVALUADOR BASE)")
 print("="*60)
 print(f"Modelo Evaluado: {MODELO}")
 print(f"Muestra: {len(y_pred_q)} tickets procesados.")
 print(f"Latencia Media: {np.mean(latencias):.2f} ms / ticket")
 
-print("\n📈 DIMENSIÓN: NIVEL DE QUEJA")
+print("\nDIMENSIÓN: NIVEL DE QUEJA")
 print(f" - MAE: {mae_q:.2f} | RMSE: {rmse_q:.2f} | Acc(±1): {acc_q:.1f}% | QWK: {kappa_q:.3f} | Fallos Críticos: {fc_q:.1f}%")
 
-print("\n📉 DIMENSIÓN: NIVEL DE RETRASO")
+print("\nDIMENSIÓN: NIVEL DE RETRASO")
 print(f" - MAE: {mae_r:.2f} | RMSE: {rmse_r:.2f} | Acc(±1): {acc_r:.1f}% | QWK: {kappa_r:.3f} | Fallos Críticos: {fc_r:.1f}%")
 print("="*60)
 
@@ -222,5 +222,5 @@ informe_experimento = {
 with open(PATH_JSON_METRICAS, "w", encoding="utf-8") as f:
     json.dump(informe_experimento, f, indent=4, ensure_ascii=False)
 
-print(f"💾 Resultados detallados guardados en: {PATH_CSV_SALIDA}")
-print(f"💾 Métricas globales guardadas en: {PATH_JSON_METRICAS}")
+print(f"[*] Resultados detallados guardados en: {PATH_CSV_SALIDA}")
+print(f"[*] Métricas globales guardadas en: {PATH_JSON_METRICAS}")
