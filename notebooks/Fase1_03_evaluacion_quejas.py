@@ -13,7 +13,7 @@ ARCHIVO_RESULTADOS = os.path.join(DIRECTORIO_RAIZ, "data", "processed", "lab_pro
 # Archivo final limpio que guardaremos como anexo para tu TFG
 ARCHIVO_FINAL = os.path.join(DIRECTORIO_RAIZ, "data", "processed", "evaluacion_quejas_final.csv")
 
-print("📊 Evaluando el rendimiento de Llama 3.2 (Detección de Quejas)...\n")
+print("[*] Evaluando el rendimiento de Llama 3.2 (Detección de Quejas)...\n")
 
 try:
     # Leemos los resultados
@@ -57,28 +57,28 @@ try:
     # =================================================================
     # 4. REPORTE FINAL
     # =================================================================
-    print(f"✅ Se han evaluado {total} tickets procesados en local.")
+    print(f"Se han evaluado {total} tickets procesados en local.")
     print("=" * 50)
-    print(f"🎯 ACCURACY GLOBAL: {accuracy:.2f}% ({tp+tn}/{total} aciertos)")
+    print(f"ACCURACY GLOBAL: {accuracy:.2f}% ({tp+tn}/{total} aciertos)")
     print("-" * 50)
     print("MATRIZ DE CONFUSIÓN:")
-    print(f" ✔️ Verdaderos Positivos (Quejas cazadas) : {tp}")
-    print(f" ✔️ Verdaderos Negativos (Dudas filtradas): {tn}")
-    print(f" 🚨 Falsos Positivos (IA se asustó)       : {fp}")
-    print(f" 💤 Falsos Negativos (IA no lo vio)       : {fn}")
+    print(f" Verdaderos Positivos (Quejas cazadas) : {tp}")
+    print(f" Verdaderos Negativos (Dudas filtradas): {tn}")
+    print(f" Falsos Positivos (IA se asustó)       : {fp}")
+    print(f" Falsos Negativos (IA no lo vio)       : {fn}")
     print("-" * 50)
     print("MÉTRICAS ACADÉMICAS (Menciónalas en la memoria):")
-    print(f" 🔹 Precisión (Precision) : {precision:.2f}%")
-    print(f" 🔹 Sensibilidad (Recall) : {recall:.2f}%")
-    print(f" 🏆 F1-Score              : {f1_score:.2f}%")
+    print(f" Precisión (Precision) : {precision:.2f}%")
+    print(f" Sensibilidad (Recall) : {recall:.2f}%")
+    print(f" F1-Score              : {f1_score:.2f}%")
     print("=" * 50)
 
     # Exportamos el archivo limpio para anexar al TFG
     df.to_csv(ARCHIVO_FINAL, index=False, encoding='utf-8')
-    print(f"💾 Archivo de evaluación guardado para anexos en:\n{ARCHIVO_FINAL}")
+    print(f"[*] Archivo de evaluación guardado para anexos en:\n{ARCHIVO_FINAL}")
 
 except FileNotFoundError:
-    print(f"❌ ERROR: No encuentro el archivo '{ARCHIVO_RESULTADOS}'. Revisa dónde se guardó.")
+    print(f"[*] ERROR: No encuentro el archivo '{ARCHIVO_RESULTADOS}'. Revisa dónde se guardó.")
 except Exception as e:
-    print(f"⚠️ Error inesperado al calcular: {e}")
+    print(f"[*] Error inesperado al calcular: {e}")
     

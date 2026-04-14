@@ -15,7 +15,7 @@ ARCHIVO_RESULTADOS = os.path.join(DIRECTORIO_RAIZ, "data", "processed", "progres
 # Archivo final limpio que guardaremos para tu TFG
 ARCHIVO_FINAL = os.path.join(DIRECTORIO_RAIZ, "data", "processed", "evaluacion_llama_final.csv")
 
-print("📊 Evaluando el rendimiento de Llama 3.2 (Sentimiento/Quejas)...\n")
+print("Evaluando el rendimiento de Llama 3.2 (Sentimiento/Quejas)...\n")
 
 try:
     # Leemos los resultados
@@ -40,19 +40,19 @@ try:
     # Falso Negativo: La IA dice que es neutral (0), pero el cliente estaba enfadado (1)
     falsos_negativos = ((df['es_urgente_real'] == 1) & (df['prediccion_ia'] == 0)).sum()
     
-    print(f"✅ Se han evaluado {total} tickets procesados en local.")
+    print(f"Se han evaluado {total} tickets procesados en local.")
     print("-" * 50)
-    print(f"🎯 ACCURACY ZERO-SHOT (LLAMA 3.2): {accuracy:.2f}% ({aciertos}/{total})")
+    print(f"ACCURACY ZERO-SHOT (LLAMA 3.2): {accuracy:.2f}% ({aciertos}/{total})")
     print("-" * 50)
-    print(f"🚨 Falsas Quejas (IA ve enfado donde no lo hay): {falsos_positivos}")
-    print(f"💤 Quejas Ignoradas (IA no detecta la frustración): {falsos_negativos}")
+    print(f"Falsas Quejas (IA ve enfado donde no lo hay): {falsos_positivos}")
+    print(f"Quejas Ignoradas (IA no detecta la frustración): {falsos_negativos}")
     print("-" * 50)
 
     # Exportamos el archivo limpio para anexar al TFG
     df.to_csv(ARCHIVO_FINAL, index=False, encoding='utf-8')
-    print(f"💾 ¡Archivo final para el TFG guardado en:\n{ARCHIVO_FINAL}!")
+    print(f"Archivo final guardado en:\n{ARCHIVO_FINAL}")
 
 except FileNotFoundError:
-    print(f"❌ ERROR: No encuentro el archivo '{ARCHIVO_RESULTADOS}'. Revisa dónde se guardó.")
+    print(f"[*] ERROR: No encuentro el archivo '{ARCHIVO_RESULTADOS}'.")
 except Exception as e:
-    print(f"⚠️ Error inesperado al calcular: {e}")
+    print(f"[*] Error inesperado al calcular: {e}")

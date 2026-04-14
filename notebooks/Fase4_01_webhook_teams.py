@@ -69,9 +69,9 @@ def enviar_alerta_teams(webhook_url, ticket):
     try:
         response = requests.post(webhook_url, data=json.dumps(payload), headers=headers)
         response.raise_for_status() # Lanza una excepción si el status HTTP es de error
-        logging.info(f"✅ Alerta enviada con éxito para el ticket: {ticket['archivo']}")
+        logging.info(f"[*] Alerta enviada con éxito para el ticket: {ticket['archivo']}")
     except requests.exceptions.RequestException as e:
-        logging.error(f"❌ Error al enviar alerta a Teams: {e}")
+        logging.error(f"[*] Error al enviar alerta a Teams: {e}")
         if e.response is not None:
             logging.error(f"Detalle del servidor: {e.response.text}")
 
@@ -93,9 +93,9 @@ def procesar_incidencias(archivo_csv, webhook_url):
                 else:
                     logging.info(f"Incidencia menor (Score {score}). Ignorando ticket: {row['archivo']}")
     except FileNotFoundError:
-        logging.error(f"❌ No se encontró el archivo: {archivo_csv}. Asegúrate de que está en la misma carpeta.")
+        logging.error(f"[*] No se encontró el archivo: {archivo_csv}. Asegúrate de que está en la misma carpeta.")
     except Exception as e:
-        logging.error(f"❌ Error inesperado al procesar el archivo: {e}")
+        logging.error(f"[*] Error inesperado al procesar el archivo: {e}")
 
 if __name__ == "__main__":
     # 1. Cargamos la URL desde la variable de entorno por seguridad (Enterprise Data Privacy)
@@ -105,6 +105,6 @@ if __name__ == "__main__":
     ARCHIVO_DATOS = "../data/processed/evaluacion_scoring_compleja.csv" 
     
     if not WEBHOOK_URL:
-        logging.error("❌ No se encontró la variable TEAMS_WEBHOOK_URL. Debes exportarla antes de ejecutar el script.")
+        logging.error("[*] No se encontró la variable TEAMS_WEBHOOK_URL. Debes exportarla antes de ejecutar el script.")
     else:
         procesar_incidencias(ARCHIVO_DATOS, WEBHOOK_URL)

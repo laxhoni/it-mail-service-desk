@@ -26,12 +26,12 @@ PATH_TEXTOS = os.path.join(DATA_RAW, "sample_utterances.csv")
 PATH_EXCEL = os.path.join(DATA_RAW, "issues_snapshot_sample.xlsx")
 PATH_OUTPUT = os.path.join(DATA_PROCESSED, "dataset_validacion_tfg.csv")
 
-print(f"✅ Entorno listo.\n📂 Datos brutos en: {DATA_RAW}\n📂 Salida procesada en: {DATA_PROCESSED}")
+print(f"[*] Entorno listo.\n[*] Datos brutos en: {DATA_RAW}\n[*] Salida procesada en: {DATA_PROCESSED}")
 
 # =================================================================
 # 2. CARGA DE DATOS
 # =================================================================
-print("⏳ Cargando datos...")
+print("[*] Cargando datos...")
 
 try:
     df_issues = pd.read_csv(PATH_ISSUES)
@@ -39,11 +39,11 @@ try:
     # Nota: Para leer Excel local necesitas: pip install openpyxl
     df_sample = pd.read_excel(PATH_EXCEL)
 
-    print(f"📊 Tickets (issues): {df_issues.shape[0]}")
-    print(f"📊 Mensajes (textos): {df_textos.shape[0]}")
-    print(f"📊 Evaluaciones Manager: {df_sample.shape[0]}")
+    print(f"[*] Tickets (issues): {df_issues.shape[0]}")
+    print(f"[*] Mensajes (textos): {df_textos.shape[0]}")
+    print(f"[*] Evaluaciones Manager: {df_sample.shape[0]}")
 except Exception as e:
-    print(f"❌ Error al cargar archivos: {e}\n⚠️ Asegúrate de tener los archivos en la carpeta data/raw/")
+    print(f"[*] Error al cargar archivos: {e}\n[*] Asegúrate de tener los archivos en la carpeta data/raw/")
     exit() # Detiene el script si no hay datos
 
 # =================================================================
@@ -63,7 +63,7 @@ df_primer_contacto = df_clientes[df_clientes['comment_seq'] == 0]
 df_textos_agrupados = df_primer_contacto.groupby('issueid')['actionbody'].apply(lambda x: ' \n '.join(x)).reset_index()
 df_textos_agrupados.rename(columns={'actionbody': 'texto_cliente_completo'}, inplace=True)
 
-print(f"📧 Tickets con correo de apertura reconstruido: {df_textos_agrupados.shape[0]}")
+print(f"[*] Tickets con correo de apertura reconstruido: {df_textos_agrupados.shape[0]}")
 
 def limpiar_texto(texto):
     if not isinstance(texto, str): return ""
@@ -79,7 +79,7 @@ def limpiar_texto(texto):
     return texto
 
 df_textos_agrupados['texto_limpio'] = df_textos_agrupados['texto_cliente_completo'].apply(limpiar_texto)
-print("✨ Texto normalizado para el LLM.")
+print("[*] Texto normalizado para el LLM.")
 
 # =================================================================
 # 4. INTEGRACIÓN Y CREACIÓN DEL GROUND TRUTH (Verdad Absoluta)
@@ -94,7 +94,7 @@ if 'id' in df_sample.columns:
     df_master = pd.merge(df_master, df_sample[['id', 'Notes', 'Q1', 'Q2', 'Q3']], on='id', how='left')
 
 df_master.drop(columns=['id'], inplace=True)
-print(f"🔗 Dataset integrado. Tamaño final: {df_master.shape}")
+print(f"[*] Dataset integrado. Tamaño final: {df_master.shape}")
 
 def asignar_urgencia_tfg(row):
     # Clase 1: Urgencia explícita
@@ -111,12 +111,12 @@ def asignar_urgencia_tfg(row):
 
 df_master['es_urgente_real'] = df_master.apply(asignar_urgencia_tfg, axis=1)
 
-print("📊 Distribución de es_urgente_real:")
+print("[*] Distribución de es_urgente_real:")
 print(df_master['es_urgente_real'].value_counts(normalize=True) * 100)
 
 # =================================================================
 # 5. EXPORTACIÓN
 # =================================================================
 df_master.to_csv(PATH_OUTPUT, index=False, encoding='utf-8')
-print(f"\n💾 Dataset guardado en: {PATH_OUTPUT}")
-print("🚀 ¡Todo listo para ejecutar el script de clasificación local!")
+print(f"\nDataset guardado en: {PATH_OUTPUT}")
+print("Todo listo para ejecutar el script de clasificación local.")

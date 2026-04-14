@@ -65,7 +65,7 @@ def parsear_archivo_eml(ruta_eml):
     # Navegar por el MIME Multipart
     if msg.is_multipart():
         for part in msg.walk():
-            # ⚠️ MAGIA: Ignoramos la basura binaria (PDFs, imágenes, base64)
+            # Ignoramos la basura binaria (PDFs, imágenes, base64)
             if part.get_content_disposition() == 'attachment':
                 continue
             
@@ -132,7 +132,7 @@ def evaluar_scoring_ticket(asunto, mensaje_actual, historial):
         )
         return json.loads(response['response'])
     except Exception as e:
-        print(f"⚠️ Error en LLM: {e}")
+        print(f"[*] Error en LLM: {e}")
         return None
 
 # =================================================================
@@ -143,16 +143,16 @@ def ejecutar_pipeline_evaluacion():
     total = len(archivos_eml)
     
     if total == 0:
-        print(f"❌ No hay archivos .eml en {PATH_INPUT_DIR}. Ejecuta primero el simulador.")
+        print(f"[*] No hay archivos .eml en {PATH_INPUT_DIR}. Ejecuta primero el simulador.")
         return
 
-    print(f"🚀 Iniciando Pipeline de Scoring (Lectura + Separación + Llama 3.2) con {total} tickets...\n" + "-"*60)
+    print(f"Iniciando Pipeline de Scoring (Lectura + Separación + Llama 3.2) con {total} tickets...\n" + "-"*60)
 
     # Checkpoint logic
     if os.path.exists(PATH_OUTPUT):
         df_existente = pd.read_csv(PATH_OUTPUT)
         procesados = df_existente['archivo'].tolist()
-        print(f"🔄 Checkpoint: {len(procesados)} tickets ya evaluados.")
+        print(f"[*] Checkpoint: {len(procesados)} tickets ya evaluados.")
     else:
         columnas = ['archivo', 'remitente', 'asunto', 'score_ia', 'sistema_afectado', 'razonamiento']
         pd.DataFrame(columns=columnas).to_csv(PATH_OUTPUT, index=False)
@@ -194,8 +194,8 @@ def ejecutar_pipeline_evaluacion():
             pd.DataFrame([nueva_fila]).to_csv(PATH_OUTPUT, mode='a', header=False, index=False)
             
             print(f"[{i+1}/{total}] {archivo} | SCORE: {score}/5 {alert} ({tiempo:.1f}s)")
-            print(f"    🖥️ Sistema: {nueva_fila['sistema_afectado']}")
-            print(f"    💡 Razón: {nueva_fila['razonamiento']}")
+            print(f"[*] Sistema: {nueva_fila['sistema_afectado']}")
+            print(f"[*] Razón: {nueva_fila['razonamiento']}")
             print("-" * 60)
 
     print(f"\n💾 Pipeline completado. Reporte maestro guardado en:\n{PATH_OUTPUT}")

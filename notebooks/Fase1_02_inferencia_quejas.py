@@ -23,12 +23,12 @@ def limpiar_tweet(texto):
 
 def preparar_datos_equilibrados():
     if not os.path.exists(PATH_RAW):
-        raise FileNotFoundError(f"❌ No encuentro el archivo en {PATH_RAW}")
+        raise FileNotFoundError(f"[*] No encuentro el archivo en {PATH_RAW}")
     
-    print("📂 Cargando dataset Gold Standard (Airline Sentiment)...")
+    print("[*] Cargando dataset Gold Standard (Airline Sentiment)...")
     df = pd.read_csv(PATH_RAW)
     
-    # ⚠️ AÑADIDO: Mantenemos el tweet_id para saber cuáles hemos procesado
+    # Mantenemos el tweet_id para saber cuáles hemos procesado
     df = df[['tweet_id', 'text', 'airline_sentiment']].dropna().copy()
     
     quejas = df[df['airline_sentiment'] == 'negative'].sample(50, random_state=42)
@@ -64,7 +64,7 @@ def probar_prompt(texto):
         )
         return json.loads(response['response'])
     except Exception as e:
-        print(f"⚠️ Error: {e}")
+        print(f"[*] Error: {e}")
         return None
 
 # =================================================================
@@ -78,7 +78,7 @@ def ejecutar_laboratorio():
         df_existente = pd.read_csv(PATH_OUTPUT)
         # Obtenemos la lista de IDs que ya están guardados
         procesados = df_existente['tweet_id'].tolist()
-        print(f"🔄 Checkpoint: {len(procesados)} tickets ya evaluados. Reanudando...")
+        print(f"[*] Checkpoint: {len(procesados)} tickets ya evaluados. Reanudando...")
     else:
         # Si no existe, creamos el archivo con las cabeceras
         columnas = ['tweet_id', 'texto', 'es_queja_real', 'es_queja_ia', 'match', 'razonamiento']
@@ -90,10 +90,10 @@ def ejecutar_laboratorio():
     total = len(df_pendientes)
     
     if total == 0:
-        print("✅ Todos los tickets de la muestra ya han sido procesados. Borra el archivo CSV si quieres volver a empezar.")
+        print("[*] Todos los tickets de la muestra ya han sido procesados. Borra el archivo CSV si quieres volver a empezar.")
         return
 
-    print(f"🚀 Procesando {total} tickets restantes...\n" + "-"*50)
+    print(f"[*] Procesando {total} tickets restantes...\n" + "-"*50)
 
     for i, row in df_pendientes.iterrows():
         inicio = time.time()
@@ -122,7 +122,7 @@ def ejecutar_laboratorio():
                 'razonamiento': pred.get('razonamiento', '')
             }
             
-            # ⚠️ GUARDADO INSTANTÁNEO EN EL CSV (Modo 'a' = append)
+            # GUARDADO INSTANTÁNEO EN EL CSV (Modo 'a' = append)
             pd.DataFrame([nueva_fila]).to_csv(PATH_OUTPUT, mode='a', header=False, index=False)
             
             estado = "✅" if match else "❌"
@@ -139,9 +139,9 @@ def ejecutar_laboratorio():
     falsos_negativos = len(df_final[(df_final['es_queja_real'] == True) & (df_final['es_queja_ia'] == False)])
 
     print("\n" + "="*50)
-    print(f"📊 ACCURACY GLOBAL: {accuracy:.2f}% (sobre {len(df_final)} evaluados)")
-    print(f"🚨 Falsas Quejas (IA se asustó): {falsos_positivos}")
-    print(f"💤 Quejas Ignoradas (IA no lo vio): {falsos_negativos}")
+    print(f"[*] ACCURACY GLOBAL: {accuracy:.2f}% (sobre {len(df_final)} evaluados)")
+    print(f"[*] Falsas Quejas (IA se asustó): {falsos_positivos}")
+    print(f"[*] Quejas Ignoradas (IA no lo vio): {falsos_negativos}")
     print("=" * 50)
 
 if __name__ == "__main__":

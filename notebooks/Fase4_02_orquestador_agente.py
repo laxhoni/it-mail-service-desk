@@ -6,18 +6,18 @@ import requests
 from dotenv import load_dotenv
 
 # ==========================================
-# 🔐 0. CARGAR SEGURIDAD
+# 0. CARGAR SEGURIDAD
 # ==========================================
 load_dotenv()
 
 # ==========================================
-# ⚙️ 1. CONFIGURACIÓN
+# 1. CONFIGURACIÓN
 # ==========================================
 CARPETA_ONEDRIVE = r"C:\Users\barco\OneDrive\Documentos\GitHub\it-mail-service-desk\docs" 
 WEBHOOK_TEAMS = os.getenv("WEBHOOK_TEAMS")
 
 if not WEBHOOK_TEAMS:
-    print("❌ ERROR: No se encontró WEBHOOK_TEAMS en el .env")
+    print("[*] ERROR: No se encontró WEBHOOK_TEAMS en el .env")
     exit()
 
 CARPETA_PROCESADOS = os.path.join(CARPETA_ONEDRIVE, "Procesados")
@@ -25,7 +25,7 @@ if not os.path.exists(CARPETA_PROCESADOS):
     os.makedirs(CARPETA_PROCESADOS)
 
 # ==========================================
-# 🧠 2. EL CEREBRO CLASIFICADOR (Llama 3.2)
+# 2. EL CEREBRO CLASIFICADOR (Llama 3.2)
 # ==========================================
 def analizar_con_ia(asunto, cuerpo):
     print("🦙 Llama 3.2 analizando severidad...")
@@ -63,7 +63,7 @@ def analizar_con_ia(asunto, cuerpo):
         return {"prediccion": "ERROR", "score": 1, "razonamiento": str(e)}
 
 # ==========================================
-# 🦾 3. NOTIFICACIÓN ESTILO PREMIUM
+# 3. NOTIFICACIÓN ESTILO PREMIUM
 # ==========================================
 def enviar_alerta_teams(remitente, asunto, razonamiento, score, archivo):
     print(f"📢 Escalando alerta crítica a Teams (Score: {score})...")
@@ -125,18 +125,18 @@ def enviar_alerta_teams(remitente, asunto, razonamiento, score, archivo):
         headers = {'Content-Type': 'application/json'}
         respuesta = requests.post(WEBHOOK_TEAMS, data=json.dumps(payload), headers=headers)
         if respuesta.status_code in [200, 202]:
-             print("✅ Tarjeta enviada con éxito.")
+             print("[*] Tarjeta enviada con éxito.")
         else:
-             print(f"❌ Error en Teams: {respuesta.status_code}")
+             print(f"[*] Error en Teams: {respuesta.status_code}")
     except Exception as e:
-        print(f"❌ Error de red: {e}")
+        print(f"[*] Error de red: {e}")
 
 # ==========================================
 # 👀 4. EL VIGILANTE
 # ==========================================
 def vigilar_carpeta_activamente():
     print("==================================================")
-    print("🚀 AGENTE IA INICIADO - ESTILO PREMIUM TEAMS")
+    print("AGENTE IA INICIADO - ESTILO PREMIUM TEAMS")
     print("==================================================")
     
     while True:
@@ -151,7 +151,7 @@ def vigilar_carpeta_activamente():
                             # strict=False para tolerar los saltos de línea del JSON de Power Automate
                             datos = json.loads(f.read(), strict=False)
                         
-                        print(f"\n📄 PROCESANDO: {archivo}")
+                        print(f"\nPROCESANDO: {archivo}")
                         remitente = datos.get("remitente", "Desconocido")
                         asunto = datos.get("asunto", "Sin asunto")
                         cuerpo = datos.get("cuerpo", "Sin cuerpo")
@@ -173,12 +173,12 @@ def vigilar_carpeta_activamente():
 
                         # 3. Mover a Procesados
                         shutil.move(ruta, os.path.join(CARPETA_PROCESADOS, archivo))
-                        print("📁 Ciclo completado.")
+                        print("[*] Ciclo completado.")
 
                     except (json.JSONDecodeError, PermissionError):
                         continue 
         except Exception as e:
-            print(f"❌ Error general: {e}")
+            print(f"[*] Error general: {e}")
             
         time.sleep(5)
 

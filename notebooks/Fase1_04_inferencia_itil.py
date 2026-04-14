@@ -16,10 +16,10 @@ PATH_CHECKPOINT = os.path.join(DIRECTORIO_RAIZ, "data", "processed", "progreso_l
 def cargar_datos():
     try:
         df = pd.read_csv(PATH_DATASET)
-        print(f"✅ Dataset cargado: {len(df)} registros.")
+        print(f"[*] Dataset cargado: {len(df)} registros.")
         return df
     except FileNotFoundError:
-        raise SystemExit(f"❌ ERROR: Dataset no encontrado en {PATH_DATASET}")
+        raise SystemExit(f"[*] ERROR: Dataset no encontrado en {PATH_DATASET}")
 
 # =================================================================
 # 2. LÓGICA DE CLASIFICACIÓN (MARCO DE CONTINUIDAD DE NEGOCIO)
@@ -101,7 +101,7 @@ df_experimento = df_master.sample(100, random_state=42).copy()
 if os.path.exists(PATH_CHECKPOINT):
     df_progreso = pd.read_csv(PATH_CHECKPOINT)
     procesados_ids = df_progreso['id_original'].tolist()
-    print(f"🔄 Reanudando desde checkpoint: {len(procesados_ids)} tickets ya procesados.")
+    print(f"Reanudando desde checkpoint: {len(procesados_ids)} tickets ya procesados.")
 else:
     df_progreso = pd.DataFrame(columns=['id_original', 'texto_limpio', 'es_urgente_real', 'prediccion_ia', 'razonamiento_ia'])
     df_progreso.to_csv(PATH_CHECKPOINT, index=False)
@@ -110,7 +110,7 @@ else:
 df_pendientes = df_experimento[~df_experimento.index.isin(procesados_ids)]
 total_pendientes = len(df_pendientes)
 
-print(f"🚀 Procesando {total_pendientes} tickets con Marco de Continuidad...\n" + "-"*50)
+print(f"Procesando {total_pendientes} tickets con Marco de Continuidad...\n" + "-"*50)
 
 for i, (index, row) in enumerate(df_pendientes.iterrows()):
     inicio = time.time()
@@ -134,8 +134,8 @@ for i, (index, row) in enumerate(df_pendientes.iterrows()):
         # Feedback visual en consola
         match = "✅" if prediccion == row['es_urgente_real'] else "❌"
         print(f"[{i+1}/{total_pendientes}] ID: {index} | Pred: {prediccion} vs Real: {row['es_urgente_real']} {match} ({tiempo:.1f}s)")
-        print(f"    💡 {razonamiento[:120]}...")
+        print(f"    [*] {razonamiento[:120]}...")
     else:
-        print(f"⚠️ Error en ticket ID {index}, saltando...")
+        print(f"[*] Error en ticket ID {index}, saltando...")
 
-print("-" * 50 + "\n✅ Proceso completado con éxito.")
+print("-" * 50 + "\nProceso completado con éxito.")

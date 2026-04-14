@@ -56,7 +56,7 @@ def inventar_correo_complejo(es_queja):
         )
         return json.loads(response['response'])
     except Exception as e:
-        print(f"⚠️ Error en LLM: {e}")
+        print(f"[*] Error en LLM: {e}")
         return None
 
 # =================================================================
@@ -96,7 +96,7 @@ def crear_archivo_eml(datos_llm, id_ticket):
 # 4. MOTOR PRINCIPAL (5 Quejas, 5 No-Quejas)
 # =================================================================
 def ejecutar_pipeline_simulacion():
-    print("🚀 Fabricando 10 correos .EML complejos (Hilos anidados + Adjuntos)...\n" + "-"*50)
+    print("Fabricando 10 correos .EML complejos (Hilos anidados + Adjuntos)...\n" + "-"*50)
     
     # Definimos la lista exacta: 5 quejas (True) y 5 no-quejas (False)
     casuisticas = [True]*5 + [False]*5
@@ -111,12 +111,12 @@ def ejecutar_pipeline_simulacion():
         
         if datos:
             ruta = crear_archivo_eml(datos, id_ticket)
-            print(f"   ✅ Guardado: {id_ticket}.eml 📎 (Asunto: {datos['asunto'][:30]}...)")
+            print(f"[*] Guardado: {id_ticket}.eml 📎 (Asunto: {datos['asunto'][:30]}...)")
         else:
-            print("   ❌ Fallo al generar este correo.")
+            print("[*] Fallo al generar este correo.")
 
     print("\n" + "="*50)
-    print(f"💾 Archivos .eml listos en: {PATH_OUTPUT_DIR}")
+    print(f"Archivos .eml listos en: {PATH_OUTPUT_DIR}")
 
 if __name__ == "__main__":
     ejecutar_pipeline_simulacion()
