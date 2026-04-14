@@ -33,7 +33,7 @@ def generar_configuracion_dinamica(descripcion_empresa):
        Representa la sensibilidad al IMPACTO TÉCNICO Y OPERATIVO.
        - Sube el peso (0.6 - 0.9) si el negocio prioriza: tiempos límite (SLAs), producción detenida, logística, pérdidas financieras directas por tiempo, o fallos de maquinaria/software.
        
-       ⚠️ REGLA MATEMÁTICA ESTRICTA: 'peso_queja' + 'peso_retraso' DEBEN sumar exactamente 1.0.
+       [*] REGLA MATEMÁTICA ESTRICTA: 'peso_queja' + 'peso_retraso' DEBEN sumar exactamente 1.0.
 
     3. 'contexto': 
        Redacta las instrucciones (System Prompt) que usará el motor de IA para leer los correos cada día. 
@@ -50,7 +50,7 @@ def generar_configuracion_dinamica(descripcion_empresa):
     """
     
     try:
-        logging.info("⚙️ Solicitando arquitectura de triaje adaptativa a Llama 3.2...")
+        logging.info("[*] Solicitando arquitectura de triaje adaptativa a Llama 3.2...")
         r = requests.post(url, json={
             "model": "llama3.2", 
             "prompt": meta_prompt, 
@@ -65,7 +65,7 @@ def generar_configuracion_dinamica(descripcion_empresa):
         pr = float(nueva_config.get("peso_retraso", 0.5))
         
         if abs((pq + pr) - 1.0) > 0.01:
-            logging.warning("⚠️ Los pesos generados no suman 1.0. Forzando normalización proporcional...")
+            logging.warning("[*] Los pesos generados no suman 1.0. Forzando normalización proporcional...")
             total = pq + pr
             # Normalización segura en caso de que la IA se equivoque en la suma
             nueva_config["peso_queja"] = round(pq / total, 2)
@@ -79,9 +79,9 @@ def generar_configuracion_dinamica(descripcion_empresa):
         with open(ruta_archivo, 'w', encoding='utf-8') as f:
             json.dump(nueva_config, f, indent=4, ensure_ascii=False)
             
-        logging.info(f"✅ Auto-configuración completada. Nuevo contexto inyectado en {ruta_archivo}")
+        logging.info(f"[*] Auto-configuración completada. Nuevo contexto inyectado en {ruta_archivo}")
         return True
 
     except Exception as e:
-        logging.error(f"❌ Error en Meta-Prompting: {e}")
+        logging.error(f"[*] Error en Meta-Prompting: {e}")
         return False

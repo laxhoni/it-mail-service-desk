@@ -23,16 +23,16 @@ def cargar_configuracion():
         if os.path.exists(ruta_config):
             with open(ruta_config, 'r', encoding='utf-8') as f:
                 datos = json.load(f)
-                logging.info(f"🧠 Memoria de Negocio cargada: Peso Queja={datos.get('peso_queja')} | Peso Retraso={datos.get('peso_retraso')}")
+                logging.info(f"[*] Memoria de Negocio cargada: Peso Queja={datos.get('peso_queja')} | Peso Retraso={datos.get('peso_retraso')}")
                 return {
                     "peso_queja": float(datos.get("peso_queja", 0.5)),
                     "peso_retraso": float(datos.get("peso_retraso", 0.5)),
                     "contexto": str(datos.get("contexto", config_default["contexto"]))
                 }
         else:
-            logging.warning(f"⚠️ Archivo no encontrado en {ruta_config}. Usando fallback por defecto.")
+            logging.warning(f"[*] Archivo no encontrado en {ruta_config}. Usando fallback por defecto.")
     except Exception as e:
-        logging.error(f"❌ Error crítico leyendo config.json: {e}. Usando fallback.")
+        logging.error(f"[*] Error crítico leyendo config.json: {e}. Usando fallback.")
     
     return config_default
 
@@ -58,13 +58,13 @@ def analizar_con_ia(asunto, cuerpo):
                     score_final = ej.get('score_humano') if ej.get('score_humano') is not None else ej.get('score', 1)
                     
                     razonamiento_final = ej.get('razonamiento_humano') if ej.get('razonamiento_humano') else ej.get('razonamiento')
-                    origen = "🗣️ EXPERTO HUMANO (VALIDADO - CUMPLIR OBLIGATORIAMENTE)"
+                    origen = "[*] EXPERTO HUMANO (VALIDADO - CUMPLIR OBLIGATORIAMENTE)"
                 else:
                     queja_final = ej.get('nivel_queja', 1)
                     retraso_final = ej.get('nivel_retraso', 1)
                     score_final = ej.get('score', 1)
                     razonamiento_final = ej.get('razonamiento')
-                    origen = "🤖 PREDICCIÓN IA PREVIA"
+                    origen = "[*] PREDICCIÓN IA PREVIA"
 
                 # El prompt ahora enseña a la IA el desglose de 1 a 10 exacto que debe imitar
                 bloque_ejemplos += f"""
@@ -80,46 +80,71 @@ def analizar_con_ia(asunto, cuerpo):
                 """
     # --- LOGGING EN CASO NO COINCIDENCIAS ---
     if not bloque_ejemplos:
-        logging.info("ℹ️ RAG: No se han encontrado casos similares previos (o están por debajo del 0.65).")
+        logging.info("[*] RAG: No se han encontrado casos similares previos (o están por debajo del 0.65).")
     else:
         # Esto te dirá cuántos casos le está enviando realmente a la IA
         num_casos = bloque_ejemplos.count("[CASO HISTÓRICO")
-        logging.info(f"🧠 RAG: Memoria activada. Inyectando {num_casos} casos similares al prompt.")
+        logging.info(f"[*] RAG: Memoria activada. Inyectando {num_casos} casos similares al prompt.")
     # -----------------------------------------------------
     
     # --- 3. INYECCIÓN DEL META-PROMPT MULTIDIMENSIONAL ---
     prompt = f"""
-    SISTEMA: Eres un modelo analítico avanzado de clasificación de Service Desk IT.
-    
-    [INSTRUCCIONES CORE DEL NEGOCIO (PRIORIDAD MÁXIMA)]
+    <rol>
+    Eres un Analista Experto de Nivel 3 en el Service Desk IT de una corporación multinacional. Tu tarea es analizar correos electrónicos entrantes y clasificarlos con precisión matemática basándote ESTRICTAMENTE en dos rúbricas predefinidas.
+    </rol>
+
+    <instrucciones_contexto>
     {config['contexto']}
+    </instrucciones_contexto>
 
-    TAREA: Evalúa el ticket actual en dos dimensiones matemáticas (escala 1-10).
+    <rubricas_evaluacion>
+    Evalúa el ticket en las siguientes dos dimensiones. Asigna un valor numérico entero (1 al 10). NO inventes niveles intermedios ni te desvíes de estas definiciones. Si el correo es SPAM ininteligible o vacío, asigna 1 a ambas dimensiones.
 
-    DIMENSIÓN 1: NIVEL DE QUEJA / IMPACTO (1-10)
-    1-3: Consultas, solicitudes estándar, agradecimientos.
-    4-7: Frustración moderada, degradación de servicio, bloqueos individuales.
-    8-10: Lenguaje agresivo/urgente, impacto crítico, VIPs bloqueados, amenaza de negocio.
+    DIMENSIÓN 1: NIVEL DE QUEJA / IMPACTO EMOCIONAL Y OPERATIVO
+    1 - Tono puramente positivo: Agradecimiento por un ticket resuelto o confirmación de éxito. (Nota: ignorar "gracias de antemano" si hay una queja).
+    2 - Tono neutro/informativo: Consulta general, duda de uso, sin fricción alguna.
+    3 - Petición estándar: Solicitud de accesos, software o hardware para el futuro. Tono profesional y calmado.
+    4 - Fricción leve: Falla menor, error recurrente pero salvable (workaround disponible). El usuario informa sin enfado explícito.
+    5 - Frustración evidente: Lenguaje que denota molestia ("es la tercera vez", "es muy molesto"). Bloqueo de una tarea individual.
+    6 - Exigencia de solución: Tono asertivo o queja formal leve. Afectación de un grupo pequeño o bloqueo total de un usuario base.
+    7 - Tono cortante/Imperativo: Fuerte malestar. Usuario VIP bloqueado o afectación severa que paraliza un departamento entero.
+    8 - Lenguaje agresivo: Uso de MAYÚSCULAS para gritar, múltiples exclamaciones (!!!), quejas directas sobre la incompetencia de IT.
+    9 - Pánico o Amenaza de Negocio: Amenazas de escalar a RRHH/Dirección, o mención explícita de pérdida de dinero/ventas (ej. "estamos perdiendo miles de euros").
+    10 - Catástrofe: Insultos directos graves, histeria total, o confirmación de caída de sistemas Core (producción parada a nivel global, ciberataque).
 
-    DIMENSIÓN 2: NIVEL DE RETRASO / SLA (1-10)
-    1-3: Sin prisa, sin tiempo de espera previo.
-    4-7: Seguimiento de tickets antiguos, necesita respuesta en el día.
-    8-10: Interrupción en tiempo real, caída de sistemas core, exige resolución inmediata.
+    DIMENSIÓN 2: NIVEL DE RETRASO / SLA (URGENCIA TEMPORAL)
+    1 - Planificación futura: Semanas o meses vista. Ninguna prisa.
+    2 - Tarea sin plazo: "Cuando podáis", "No corre prisa". Baja prioridad.
+    3 - Tiempo de resolución estándar (SLA normal): Primer aviso de una incidencia común sin indicar urgencia temporal.
+    4 - Urgencia moderada: Petición para resolver "hoy" o "lo antes posible". Ligera presión.
+    5 - Retraso con impacto: Seguimiento de un ticket anterior no resuelto. El retraso empieza a afectar la planificación del usuario.
+    6 - Reiteración urgente: 2º o 3º aviso consecutivo ("lo necesito para esta tarde sin falta").
+    7 - Bloqueo inminente: El usuario no puede avanzar en su trabajo principal y está parado esperando a IT.
+    8 - Atención inmediata ("minutos"): Reuniones ejecutivas bloqueadas, directivos esperando en sala, fallo crítico reportado en tiempo real.
+    9 - Paralización de negocio: Caída que afecta a clientes externos en vivo o detiene completamente un departamento operativo.
+    10 - Emergencia vital/absoluta: Servidores caídos, riesgo físico (incendio, aire acondicionado de CPD roto), ransomware masivo. Intervención en "segundos".
+    </rubricas_evaluacion>
 
-    [MEMORIA HISTÓRICA (RAG)]
-    Aprende de estos casos para no cometer errores pasados. Presta especial atención a los niveles de Queja y Retraso asignados por el EXPERTO HUMANO.
-    {bloque_ejemplos if bloque_ejemplos else "Sin memoria relevante para este caso."}
+    <memoria_rag>
+    Utiliza el siguiente historial de casos (Ground Truth) para calibrar tu respuesta y evitar errores pasados:
+    {bloque_ejemplos if bloque_ejemplos else "Sin memoria relevante para este caso. Aplica las rúbricas de forma independiente."}
+    </memoria_rag>
 
-    [TICKET ACTUAL]
+    <correo_a_evaluar>
     Asunto: {asunto}
     Cuerpo: {cuerpo}
+    </correo_a_evaluar>
 
-    RESPONDE ESTRICTAMENTE EN ESTE FORMATO JSON:
+    <formato_salida_obligatorio>
+    Genera ÚNICAMENTE un objeto JSON válido. NO incluyas texto introductorio (ej. "Aquí tienes la respuesta:") ni etiquetas markdown (```json). Empieza directamente con la llave '{{'.
+    
+    ESTRUCTURA EXACTA:
     {{
-      "nivel_queja": <int 1-10>,
-      "nivel_retraso": <int 1-10>,
-      "razonamiento": "<justificación analítica concisa>"
+      "razonamiento": "<Analiza paso a paso: 1) Palabras clave del texto. 2) Justificación de la nota de Queja según la rúbrica. 3) Justificación de la nota de Retraso según la rúbrica.>",
+      "nivel_queja": <int>,
+      "nivel_retraso": <int>
     }}
+    </formato_salida_obligatorio>
     """
     
     try:
@@ -160,5 +185,5 @@ def analizar_con_ia(asunto, cuerpo):
         }, vector_correo_actual
 
     except Exception as e:
-        logging.error(f"❌ Error en inferencia IA: {e}")
+        logging.error(f"[*] Error en inferencia IA: {e}")
         return {"prediccion": "ERROR", "score": 1, "nivel_queja": 1, "nivel_retraso": 1, "razonamiento": "Error de procesamiento."}, []
