@@ -1,0 +1,21 @@
+{
+    "experimento": "Test 04: Evaluación con RAG (Métricas Corregidas)",
+    "fecha_ejecucion": "2026-04-14T16:15:12.662940",
+    "modelo": "llama3.2",
+    "volumen_muestra": 48,
+    "latencia_media_ms": 52928.15,
+    "metricas_queja": {
+        "MAE": 1.31,
+        "RMSE": 2.28,
+        "Accuracy_tol_1": 75.0,
+        "Kappa_QWK": 0.593,
+        "Tasa_Fallo_Critico": 16.7
+    },
+    "metricas_retraso": {
+        "MAE": 1.4,
+        "RMSE": 2.42,
+        "Accuracy_tol_1": 68.8,
+        "Kappa_QWK": 0.688,
+        "Tasa_Fallo_Critico": 20.8
+    }
+}

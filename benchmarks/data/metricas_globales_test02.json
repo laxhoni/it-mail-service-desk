@@ -1,0 +1,21 @@
+{
+    "experimento": "Test 02: Evaluacion Base con Rúbrica",
+    "fecha_ejecucion": "2026-04-14T14:46:26.832455",
+    "modelo": "llama3.2",
+    "volumen_muestra": 100,
+    "latencia_media_ms": 31107.07,
+    "metricas_queja": {
+        "MAE": 1.49,
+        "RMSE": 2.22,
+        "Accuracy_tol_1": 60.0,
+        "Kappa_QWK": 0.663,
+        "Tasa_Fallo_Critico": 19.0
+    },
+    "metricas_retraso": {
+        "MAE": 1.67,
+        "RMSE": 2.41,
+        "Accuracy_tol_1": 57.0,
+        "Kappa_QWK": 0.651,
+        "Tasa_Fallo_Critico": 26.0
+    }
+}

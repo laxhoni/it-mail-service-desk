@@ -12,7 +12,7 @@ from datetime import datetime
 # ==========================================
 OLLAMA_URL = "http://localhost:11434/api/generate"
 MODELO = "llama3.2"
-PATH_CSV_ENTRADA = "data/auditoria_HITL.csv" 
+PATH_CSV_ENTRADA = "data/auditoria_HITL_evaluado.csv" 
 PATH_CSV_SALIDA = "data/resultados_evaluacion.csv"
 PATH_JSON_METRICAS = "data/metricas_globales_test02.json"
 

@@ -1,0 +1,21 @@
+{
+    "experimento": "Test 05: Validación de Oráculo (Gemini 2.5 Flash Lite + RAG)",
+    "modelo": "gemini-2.5-flash-lite",
+    "fecha_ejecucion": "2026-04-14T19:42:41.546111",
+    "volumen_muestra": 50,
+    "latencia_media_ms": 7595.14,
+    "metricas_queja": {
+        "MAE": 0.2,
+        "RMSE": 0.66,
+        "Accuracy_tol_1": 98.0,
+        "Kappa_QWK": 0.957,
+        "Tasa_Fallo_Critico": 2.0
+    },
+    "metricas_retraso": {
+        "MAE": 0.24,
+        "RMSE": 0.77,
+        "Accuracy_tol_1": 96.0,
+        "Kappa_QWK": 0.954,
+        "Tasa_Fallo_Critico": 4.0
+    }
+}

@@ -1,0 +1,702 @@
+[
+    {
+        "id": "TICKET_001",
+        "asunto": "Problema con la pantalla interactiva en la reunión ejecutiva",
+        "cuerpo": "Estimado equipo de soporte, \n\nMe dirijo a ustedes para informarles que debido a un problema técnico, nuestra reunión ejecutiva se ha visto bloqueada. La pantalla interactiva que utilizamos para presentar nuestros informes y discutir asuntos importantes no funciona correctamente.\n\nEstoy preocupado por la cantidad de tiempo que estamos perdiendo en esta situación y me gustaría encontrar una solución lo antes posible. Por favor, indiquen si necesitan acceso a la unidad o alguna otra información adicional para ayudarme a resolver este problema.\n\nAgradezco su pronta atención a este asunto.\n\nAtentamente, [Tu nombre]",
+        "gt_queja": 7,
+        "gt_retraso": 8
+    },
+    {
+        "id": "TICKET_002",
+        "asunto": "Solicitud de instalación de Visio para proyecto enero",
+        "cuerpo": "--- Mensaje reenviado ---\nEstimado equipo de soporte informático,\nme dirijo a ustedes con el fin de solicitar la instalación de la herramienta Visio en mi computadora. Específicamente, necesito instalarlo para un proyecto que comienza al mes que viene.\nCon la información proporcionada anteriormente, puedo confirmar que tengo permisos suficientes para realizar esta solicitud.\nGracias por su atención y apoyo a este requerimiento.\nAtentamente, [Tu nombre]",
+        "gt_queja": 3,
+        "gt_retraso": 1
+    },
+    {
+        "id": "TICKET_003",
+        "asunto": "Gracias por la ayuda y apoyo",
+        "cuerpo": "--- Mensaje reenviado ---\n\nQuiero expresar mi más sincero agradecimiento por la excelente atención al cliente que recibí. La forma en que el equipo de soporte informático se puso en contacto conmigo fue impecable y muy profesional. Me sentí muy atendido y comprendido durante toda la experiencia.\n\nMi problema, lo que creía ser un inconveniente, resultó ser algo relativamente fácil de solucionar gracias a las instrucciones claras y concisas que se me proporcionaron. El apoyo estuvo siempre disponible y fue fundamental para resolver mi inquietud.\n\nQuiero reiterar mi más sincero agradecimiento por la dedicación, profesionalismo y excelencia que muestra el equipo de soporte informático. Espero poder contar con su ayuda en el futuro, si es necesario.\n\nMuchas gracias nuevamente por todo lo que han hecho por mí.",
+        "gt_queja": 1,
+        "gt_retraso": 2
+    },
+    {
+        "id": "TICKET_004",
+        "asunto": "EMERGENCIA: Ransomware detectado en sede central!!!",
+        "cuerpo": "¡Estoy escribiendo esto con un corazón a mil, porque hemos detectado ransomware en nuestra sede central!!! La seguridad es nuestra prioridad y estoy al borde de la catástrofe. ¡Necesito ayuda urgente para neutralizar esta amenaza!!! El sistema se ha vuelto inaccesible debido a la extorsión y no puedo garantizar que los datos sean seguros. ¡Por favor, envíe asistencia técnica lo antes posible!!!",
+        "gt_queja": 9,
+        "gt_retraso": 10
+    },
+    {
+        "id": "TICKET_005",
+        "asunto": "Problema con Excel que se queda colgado con macros pesadas",
+        "cuerpo": "Estimado equipo de soporte informático,\r\n\r\nExcelente mañana, me dirijo a ustedes para solicitar ayuda con un problema recurrente que estoy experimentando con Microsoft Excel. La versión que estoy utilizando es la última actualizada disponible.\r\n\r\nEl problema ocurre cuando intento abrir archivos excel con macros activados. En ese momento, el programa se queda colgado y no puedo realizar ninguna acción más allá de esperar para que se detiene por sí solo, lo cual puede llevar un buen rato dependiendo de la complejidad del macro.\r\n\r\nHe intentado limpiar las macros y eliminar cualquier archivo asociado con él, pero el problema persiste. Es posible que haya algún problema de compatibilidad o algún mala configuración que esté causando este comportamiento.\r\n\r\nAgradezco de antemano su atención a este asunto y espero con ansias una solución rápidapara poder seguir trabajando sin inconvenientes en mis tareas diarias.\r\n\r\nAtentamente, [Tu nombre]",
+        "gt_queja": 5,
+        "gt_retraso": 5
+    },
+    {
+        "id": "TICKET_006",
+        "asunto": "Problema con impresora planta 2 que planta papel",
+        "cuerpo": "Hola soporte informático, es un problema de nuestro equipo que necesita ayuda. La impresora planta 2 no funciona correctamente, sigue plantando papel al intentar imprimir. Hasta el momento no hemos podido solucionarlo. Nuestro equipo lo usa con mucha frecuencia y este problema causa retrasos en nuestras tareas diarias. Necesitaríamos tu apoyo para determinar la causa del problema y encontrar una solución para repararlo o sustituirlo si es necesario. Agradeceremos su ayuda al respecto.",
+        "gt_queja": 5,
+        "gt_retraso": 4
+    },
+    {
+        "id": "TICKET_007",
+        "asunto": "Problema con la impresora planta 2",
+        "cuerpo": "La impresora planta 2 ha tenido un problema de atasca con papel, lo que ha causado interrupciones en la producción y en el uso normal de la impresora. Por favor, investiguen esta situación y proporcionen una solución para solucionar este problema lo antes posible.",
+        "gt_queja": 5,
+        "gt_retraso": 4
+    },
+    {
+        "id": "TICKET_008",
+        "asunto": "Solicitud de cambio de ratón por uno ergonómico",
+        "cuerpo": "Estimado equipo de soporte informático, me dirijo a ustedes con la intención de solicitar un cambio en mi estación de trabajo. El ratón actual es poco cómodo para mí y me gustaría instalar un nuevo dispositivo ergonómico que mejore mi productividad y comodidad mientras trabajo. La empresa siempre busca implementar soluciones que beneficien a sus empleados, y estoy seguro de que este pequeño cambio puede tener un impacto positivo en nuestra eficiencia laboral. ¿Podrían ayudarme con esta solicitud? Muchas gracias por su atención al asunto.",
+        "gt_queja": 3,
+        "gt_retraso": 2
+    },
+    {
+        "id": "TICKET_009",
+        "asunto": "DETECCIÓN DE RANSOMWARE!!! NO PODEMOS MOVIZNARNOS!",
+        "cuerpo": "¡Estoy escribiendo esto con la sensación de que estamos en una situación crítica!!! Acabo de detectar un Ransomware .lock en nuestra sede central y estoy preocupado por la seguridad de nuestros datos!!! No sé qué ha pasado, pero es evidente que alguien ha intentado sabotear nuestro sistema!!! ¡Espero que puedan enviar ayuda lo antes posible!!! Necesito una respuesta inmediata para saber qué pasará a continuación!!! Por favor, hagan todo lo posible para resolver este problema lo antes posible!!! Estoy al borde de la desesperación!!!",
+        "gt_queja": 9,
+        "gt_retraso": 10
+    },
+    {
+        "id": "TICKET_010",
+        "asunto": "Solicitud de instalación de Visio para proyecto",
+        "cuerpo": "--- Mensaje reenviado ---\nEstimado equipo de soporte informático,\n\nMe dirijo a ustedes con el fin de solicitar la instalación de Visio en mi computadora para un proyecto que tengo programado para comenzar en el mes que viene.\nNecesito esta herramienta para crear diagramas y mapas visuales, y estoy seguro de que sería muy útil para mi trabajo.\nPor favor, informen sobre los pasos necesarios para instalarla y si hay algún requisito adicional que deba cumplir.\nAgradezco de antemano su ayuda en este asunto.\nAtentamente,\n[Nombre del remitente]",
+        "gt_queja": 3,
+        "gt_retraso": 1
+    },
+    {
+        "id": "TICKET_011",
+        "asunto": "MI COMPANERO HIZO CLICK EN PHISHING MASIVO!!!",
+        "cuerpo": "--- Mensaje reenviado ---\n ¡ESTO ES UNA EMERGENCIA! \\\\ El compañero de trabajo del que estoy escribiendo hizo click en un phishing masivo y ahora todo el equipo está en peligro. \\\\[Necesito ayuda urgente para proteger a mi equipo]!!!, \\\\[Por favor, envíe alguien con la contraseña para acceder al sistema]!!!",
+        "gt_queja": 8,
+        "gt_retraso": 9
+    },
+    {
+        "id": "TICKET_012",
+        "asunto": "ATENCIÓN: Ransomware detected en sede central!!!",
+        "cuerpo": "Hola al equipo de soporte informático, ¡tenemos un problema grave! Después de una revisión exhaustiva, hemos detectado la presencia de ransomware en nuestra sede central. El virus ha generado archivos .lock que han bloqueado el acceso a los sistemas y datos críticos. ¡Estamos hablando de una situación de emergencia hereje!!! La seguridad de nuestros datos y la integridad del negocio están en juego. Necesitamos tu ayuda inmediata para resolver este problema y restablecer el funcionamiento normal de los sistemas. Por favor, actúen con urgencia y prioridad máxima al respecto.",
+        "gt_queja": 9,
+        "gt_retraso": 10
+    },
+    {
+        "id": "TICKET_013",
+        "asunto": "Error en Batch de backups: No hay copia hoy",
+        "cuerpo": "Hola, tengo un problema con nuestro sistema de backups. Hoy no se ha generado ninguna copia del batch de backups programado. Estoy investigando la causa actualmente y te proporcionaré una respuesta detallada tan pronto como tenga más información.",
+        "gt_queja": 2,
+        "gt_retraso": 8
+    },
+    {
+        "id": "TICKET_014",
+        "asunto": "Ayuda con la configuración de una reunión en Microsoft Teams",
+        "cuerpo": "Hola, me gustaría saber si podría obtener ayuda para programar una reunión en Microsoft Teams. Hasta ahora no he podido hacerlo correctamente y estoy buscando la mejor forma de organizarla. ¿Podría darme algunos pasos o instrucciones claras sobre cómo hacerlo? Muchas gracias por su tiempo y ayuda.",
+        "gt_queja": 2,
+        "gt_retraso": 3
+    },
+    {
+        "id": "TICKET_015",
+        "asunto": "Alerta de certificado SSL caducado en 24 horas",
+        "cuerpo": "--- Mensaje reenviado ---\nEl certificado SSL del dominio \nse ha caducado en aproximadamente 24 horas.\nSe requiere su pronta atención para evitar inconvenientes en la conexión con nuestro sitio web.\nPuede verificar la fecha de expiración y verificar si se requiere actualización en el portal de gestión de certificados de nuestra empresa.\nSi tiene alguna pregunta o necesidad de asistencia, no dude en hacérselo saber.\nAgradezco su pronta atención a este asunto.",
+        "gt_queja": 3,
+        "gt_retraso": 7
+    },
+    {
+        "id": "TICKET_016",
+        "asunto": "PROBLEMA CON LA NUEVA ACTUALIZACIÓN DE OUTLOOK!!!",
+        "cuerpo": "Estoy completamente enfadado con la nueva actualización de Outlook!!! Me llevó horas configuar todo de nuevo y ahora no puedo acceder a mis cuentas de correo!!! No entiendo por qué les han quebrado el sistema!!! La antiguía era perfecta!!!! Alguien tiene que hacer algo al respecto, ya estoy pasando por la locura!!!!!!",
+        "gt_queja": 8,
+        "gt_retraso": 2
+    },
+    {
+        "id": "TICKET_017",
+        "asunto": "Configuración de la firma del correo electrónico",
+        "cuerpo": "Para configurar la firma del correo electrónico, por favor sigue los siguientes pasos: \n\n1. Inicie sesión en su cuenta de correo electrónico.\n2. Haga clic en el icono de configuración (género o perfil) ubicado en la esquina superior derecha de la pantalla.\n3. Seleccionará la opción 'Configuraciones del usuario'.\n4. En la sección 'Correo electrónico', haga clic en 'Agregar dirección de correo' y escriba su dirección de correo electrónico actual.\n5. Escriba el texto de la firma que desea agregar al mensaje, utilizando el teclado de texto o un editor de texto externo.\n6. Ajuste las opciones de formato según sea necesario.\n7. Haga clic en 'Guardar' para aplicar los cambios.\n\nSi tiene alguna pregunta adicional o necesita ayuda adicional, no dude en hacerlo saber al soporte informático.",
+        "gt_queja": 2,
+        "gt_retraso": 3
+    },
+    {
+        "id": "TICKET_018",
+        "asunto": "Agradecimiento por el excelente servicio de soporte informático",
+        "cuerpo": "--- Mensaje reenviado ---\n\nMuchas gracias por su ayuda y apoyo en solucionar mi problema. Me siento muy afortunado de tener un equipo tan profesional y disponible como ustedes. Su dedicación y conocimientos son verdaderamente impresionantes. Sin duda, recomendaré su excelente servicio a todos mis contactos.\n\nGracias nuevamente por todo lo que han hecho por mí. Estoy muy satisfecho con la experiencia y espero poder contar con su ayuda en el futuro.\n\nAtentamente, [Tu nombre]",
+        "gt_queja": 1,
+        "gt_retraso": 2
+    },
+    {
+        "id": "TICKET_019",
+        "asunto": "Ayuda con la configuración de Teams",
+        "cuerpo": "Hola soporte informático, necesito ayuda para programar una reunión en Microsoft Teams. No puedo encontrar las instrucciones para hacerlo y mi trabajo lo requiere urgentemente. ¿Pueden proporcionarme orientación o guía sobre cómo crear una reunión en Teams? Estoy disponible para recibir instrucciones paso a paso si es necesario. Muchas gracias por su ayuda.",
+        "gt_queja": 2,
+        "gt_retraso": 3
+    },
+    {
+        "id": "TICKET_020",
+        "asunto": "No sincroniza OneDrive (cruz roja)",
+        "cuerpo": "--- Mensaje reenviado --- \nLo siento, pero no pude enviar este mensaje de inmediato. Por favor, tómese un momento para leerlo.\n\nMe estoy esforzando por ayudarte con tu problema de OneDrive que no sincroniza.\nLa situación es la siguiente: Estoy recibiendo una señal de alerta en mi cuenta de soporte informático sobre un problema con la sincronización de OneDrive. Me gustaría ayudarte a encontrar una solución.\n¿Podrías proporcionarme más detalles sobre el problema que estás experimentando? ¿Qué versión de Office tienes instalada y qué sistema operativo estás utilizando?\nEspero tu respuesta lo antes posible para poder asistirte mejor.\n\nGracias por tu paciencia.",
+        "gt_queja": 4,
+        "gt_retraso": 4
+    },
+    {
+        "id": "TICKET_021",
+        "asunto": "Problema con la impresora planta 2 que sigue atasca papel",
+        "cuerpo": "Hola soporte informático, necesito ayuda con un problema con nuestra impresora planta 2. La máquina sigue produciendo papel pero no se estira o se corta correctamente. Al intentar imprimir un documento, la impresora sigue atascada y no puedo obtener el resultado esperado. ¿Podrían ayudarme a solucionar este problema lo antes posible? Gracias.",
+        "gt_queja": 5,
+        "gt_retraso": 4
+    },
+    {
+        "id": "TICKET_022",
+        "asunto": "Alerta: Espacio disco servidor principal al 98%",
+        "cuerpo": "El espacio disponible en el disco servidor principal se ha reducido significativamente, alcanzando un nivel de 2% actualmente. Esto puede causar problemas en la operación del sistema y afectar la capacidad para almacenar archivos y datos. Es recomendable realizar una copia de seguridad de los datos importantes y considerar aumentar el espacio disco disponible o migrar a un servicio de almacenamiento externo para garantizar la disponibilidad y accesibilidad de los archivos.",
+        "gt_queja": 2,
+        "gt_retraso": 9
+    },
+    {
+        "id": "TICKET_023",
+        "asunto": "Problema con aire acondicionado en racks a 35 grados",
+        "cuerpo": "Estimado equipo de soporte informático,\n\nHe notificado un problema con el aire acondicionado del racks, que está funcionando a una temperatura de 35 grados.\nLa consiguiente falla del sistema ha afectado la eficiencia y estabilidad del equipo.\nSe requiere urgente atención para solucionar el problema y evitar daños adicionales al hardware.\nGracias por tu pronta atención.\nAtentamente, [Tu nombre]",
+        "gt_queja": 2,
+        "gt_retraso": 10
+    },
+    {
+        "id": "TICKET_024",
+        "asunto": "Gracias por la excelente atención al soporte informático",
+        "cuerpo": "",
+        "gt_queja": 1,
+        "gt_retraso": 2
+    },
+    {
+        "id": "TICKET_025",
+        "asunto": "Error en Batch de Backups y Falta de Copia",
+        "cuerpo": "Estimado equipo de soporte informático,\n\nHe observado que no se ha realizado una copia de seguridad de los datos del sistema durante el batch de backups programado.\nNecesito tu ayuda para solucionar este problema y asegurarme de que se realicen las copias de seguridad regulares.\nEstoy disponible para proporcionar más detalles o cooperar en la solución de este error.\nAtentamente, ’ [Tu nombre] ’",
+        "gt_queja": 2,
+        "gt_retraso": 8
+    },
+    {
+        "id": "TICKET_026",
+        "asunto": "Problema con OneDrive que no sincroniza (Cruz Roja)",
+        "cuerpo": "Hola a la sección de soporte informático, estoy experimentando problemas con mi cuenta de OneDrive. Cuando intento sincronizar mis archivos, no se actualizan correctamente y dejo una cruz roja en el icono de sincronización. Estoy utilizando la última versión del software disponible para Windows y tengo suficiente espacio en disco. ¿Pueden ayudarme a resolver este problema? Agradezco su atención al asunto.",
+        "gt_queja": 4,
+        "gt_retraso": 4
+    },
+    {
+        "id": "TICKET_027",
+        "asunto": "PÉRDIDA MASAIVA Y ERROR 500 EN LA PASARELA WEB!!!",
+        "cuerpo": "--- Mensaje reenviado ---\nPérdida económica masiva y error 500 en la pasarela web!!! Esto es UN CATASTRÓFICO FALLIMBRE DEL SERVICIO!!! NO ME PUEDE SER QUE HAYAN AÑADIDO TANTO TRABAJO SIN PROTEGER LA REDUNDANCIA Y LA ESTABILIDAD DE LOS SERVICIOS!!!\n\nLos usuarios están siendo frustrados y perdemos ventas por millones de dólares porque la pasarela web no funciona correctamente.\n\n¿Qué se va a hacer?! ¿Quién se va a responsabilizar de este desastre?! ¡ES UNA DESGRACIA, UNA TRAGEDIA, UNA CATÁSTROFE!!!\n\nNecesito una solución urgentemente y necesito saber qué pasó con la pasarela web para poder arreglarlo.\n\n¿Por favor, respondan con algo, cualquier cosa...\n\n¡ESTO ES UN APOCALÍPSIS!!!",
+        "gt_queja": 9,
+        "gt_retraso": 9
+    },
+    {
+        "id": "TICKET_028",
+        "asunto": "Reunión ejecutiva bloqueada y pantalla interactiva rota",
+        "cuerpo": "Estimado equipo de soporte informático, me comunico para informar que la reunión ejecutiva se encuentra bloqueada debido a un problema con la pantalla interactiva. La misma no funciona correctamente y no puedo acceder a los documentos ni realizar las tareas programadas para el encuentro. Es fundamental resolver este problema lo antes posible para que podamos proceder con la reunión de manera normal. Agradecería su pronta intervención en este asunto.",
+        "gt_queja": 7,
+        "gt_retraso": 8
+    },
+    {
+        "id": "TICKET_029",
+        "asunto": "ERROR 500 EN PASARELA WEB: Pérdida Económica Masiva!",
+        "cuerpo": "--- Mensaje reenviado ---\n¡ESTO ES UNA EMERGENCIA! ¡NUESTRA PASARELA WEB DA ERROR 500 Y ESTÁ CAUSANDO PÉRDIDA ECONÓMICA MASIVA!!! \nNO HAY TIEMPO PARA PERDERMES Y NO PODRÍAMOS SER ASESORADOS DE ANTECAVIDO. ¡DEBE HABER ALGUNA SOLUCIÓN! ¡ESTA ES UNA SITUACIÓN CRÍTICA!!!\n\nNecesito una solución rápida y efectiva para arreglar este problema y minimizar los daños.\nPor favor, me envíen una respuesta lo antes posible.\nSi necesito cualquier información adicional, no duden en decírmelo.\nESTO ES URGENTE!!!",
+        "gt_queja": 9,
+        "gt_retraso": 9
+    },
+    {
+        "id": "TICKET_030",
+        "asunto": "Error en Batch de Backups: No se ha realizado una copia hoy",
+        "cuerpo": "Estimado equipo de soporte informático,\n\nActualmente estamos experimentando un error con la batch de backups. No se ha producido ninguna copia de seguridad hoy.\nLos pasos que hemos tomado para resolver este problema son los siguientes:\n1) Verificar las credenciales de acceso y asegurarnos de que estén correctamente configuradas.\n2) Revisar el flujo de trabajo de la batch y asegurarnos de que se esté ejecutando correctamente.\n3) Realizar un análisis exhaustivo del sistema para detectar cualquier problema potencial.\n4) Verificar las conexiones de red y asegurarnos de que estén establecidas correctamente.\n5) Revisar la documentación de la empresa para asegurarnos de que se están siguiendo las políticas de seguridad adecuadas.\n\nEstoy ansioso por saber si hay algún avance en esta materia o si necesito tomar cualquier acción adicional.\nAgradezco su atención a este asunto.\nAtentamente, [Tu nombre]",
+        "gt_queja": 2,
+        "gt_retraso": 8
+    },
+    {
+        "id": "TICKET_031",
+        "asunto": "PROBLEMA CON LA NUEVA ACTUALIZACIÓN DE OUTLOOK!!!",
+        "cuerpo": "Estoy ENFADADO y DESPECHADO con la nueva actualización de Outlook que me han impuesto en la empresa!!! La interfaz es INCOMPATIBLE con mi Mac y no puedo utilizarla correctamente. Los botones se mueven por sí solos y hacen que mis correos salgan a otras personas... NO ENTENDO POR QUÉ HAN DEJADO DE AYUDAR A USUARIOS COMO MÍ!!! La soporte informático del empresa solo me ha dado respuestas VACÍAS y no han resuelto mi problema. ¡ES UNA TRAGEDIA QUE TANTO PECUNIO SE ESTÁ GASTANDO POR ALGUNAS ACTUALIZACIONES INCOMPATIBLES!!!",
+        "gt_queja": 8,
+        "gt_retraso": 2
+    },
+    {
+        "id": "TICKET_032",
+        "asunto": "Problema con la impresora planta 2 que planta papel en exceso",
+        "cuerpo": "Hola Soporte Informático, mi nombre es Juan Pérez y soy el jefe de equipo en esta empresa. Estoy escribiendo para informarle sobre un problema que estoy experimentando con nuestra impresora planta 2. La impresora ha estado plantando papel en exceso desde ayer por la tarde y no puedo encontrar la causa del problema. He revisado los ajustes de la impresora y los filtros, pero nada parece funcionar. ¿Podrías enviar ayuda para solucionar este problema lo antes posible? Agradezco su atención a este asunto.\n\nGracias,\nJuan Pérez",
+        "gt_queja": 5,
+        "gt_retraso": 4
+    },
+    {
+        "id": "TICKET_033",
+        "asunto": "NO PUEDE ESTABLECER FONDO EN ZOOM!!! Ayuda!",
+        "cuerpo": "¡Estoy pasando por un infierno! No puedo poner fondo en Zoom y no sé cómo solucionarlo. ¡Espero una respuesta lo antes posible!!! \n\n He intentado todo: configurar la cámara, ajustar el tamaño de la ventana, incluso reiniciar el software... NADA HA FuncIONADO!!! Estoy a punto de perder la paciencia!!! ¡Ayuda, por favor!!!",
+        "gt_queja": 8,
+        "gt_retraso": 4
+    },
+    {
+        "id": "TICKET_034",
+        "asunto": "Certificado SSL del dominio caduca en 24h",
+        "cuerpo": "--- Mensaje reenviado ---\nHola, \nEstimado equipo de soporte,\n me dirijo a ustedes con el fin de informarles que nuestro certificado SSL del dominio se ha vuelto caducado.\n La fecha de caducidad es la actualidad y nos gustaría saber cuál es el procedimiento para obtener un nuevo certificado. \n Espero su pronta atención a este asunto.\n Atentamente, [Tu nombre]",
+        "gt_queja": 3,
+        "gt_retraso": 7
+    },
+    {
+        "id": "TICKET_035",
+        "asunto": "Ayuda para Excel con macros pesados",
+        "cuerpo": "Hola Soporte Informático, necesito ayuda con un problema persistente en mi versión de Excel. Al abrir archivos con macros pesados, la aplicación se queda colgada y no puedo realizar ninguna acción. He intentado desactivar los macros, pero el problema persiste. ¿Podrías proporcionarme instrucciones para solucionar este problema o recomendarte un procedimiento que pueda seguir? Estoy dispuesto a colaborar para encontrar una solución. Gracias por su atención.",
+        "gt_queja": 5,
+        "gt_retraso": 5
+    },
+    {
+        "id": "TICKET_036",
+        "asunto": "Agradecimiento por la excelente atención al soporte informático",
+        "cuerpo": "--- Mensaje reenviado ---\n\nQuiero expresar mi más sincero agradecimiento al equipo de soporte informático de esta empresa. Su ayuda y apoyo me han sido inestimables en los últimos días.\nSu capacidad para resolver mis problemas de manera rápida y eficiente ha sido impresionante. Me siento afortunado de tener su ayuda disponible para mí.\nGracias nuevamente por todo su esfuerzo y dedicación. Su trabajo es un ejemplo de excelencia en la industria del soporte informático.\nEstoy seguro de que seguiré recomendándolos a todos mis conocidos.\nUn saludo cordial",
+        "gt_queja": 1,
+        "gt_retraso": 2
+    },
+    {
+        "id": "TICKET_037",
+        "asunto": "Error de permisos en carpeta 'Nominas_2024'",
+        "cuerpo": "--- Mensaje reenviado ---\nEstimado equipo de soporte informático,\nMe dirijo a ustedes para solicitar ayuda con un problema que estoy experimentando con nuestros sistemas. La razón principal del motivo de mi consulta es el error que he encontrado en la carpeta 'Nominas_2024', donde no puedo modificar los datos de forma efectiva debido a un error de permisos.\nHe intentado varias soluciones por mi cuenta, como cambiar los permisos de acceso o verificar la configuración de seguridad, pero nada ha funcionado. Estoy preocupado porque si no se resuelve pronto, esto podría afectar la precisión y la eficiencia en nuestra gestión de pagos y salarios.\nPor lo tanto, necesitaría su ayuda para resolver este problema lo antes posible. Agradezco con anticipación su atención a este asunto.\nAtentamente,",
+        "gt_queja": 4,
+        "gt_retraso": 4
+    },
+    {
+        "id": "TICKET_038",
+        "asunto": "¡ERROR 500 EN PASARELA WEB! Pérdida económica masiva!!",
+        "cuerpo": "--- Mensaje reenviado ---\n¡Esto es un EMERGENCIA! La pasarela web de nuestra tienda en línea da ERROR 500 y estamos perdiendo una cantidad incalculable de ventas!!! ¡Necesito una solución INMEDIATA!! ¡No puedo permitir que la reputación de la empresa se vea afectada por este error!!!\n¡Por favor, responda lo antes posible!!!",
+        "gt_queja": 9,
+        "gt_retraso": 9
+    },
+    {
+        "id": "TICKET_039",
+        "asunto": "PROBLEMA CON LA NUEVA actualización de OUTLOOK!!!",
+        "cuerpo": "¡ESTO ES UNA DESASTRE!!! La nueva actualización de Outlook me ha arruinado completamente. Los botones y menús están en un lugar completamente diferente, ¡NO ME GUSTA! Además, la interfaz es más lenta que nunca. ¡Es como si estuviera usando un equipo de los 90!! No puedo encontrar ni el pie de papel. ¡ES UN DESASTRE TOTAL!! ¿Quién está detrás de esta actualización? ¿Por qué no se me notificó antes? ¡QUISO HABER CONOCIDO EL PROBLEMA antes de que hubiera un update!!",
+        "gt_queja": 8,
+        "gt_retraso": 2
+    },
+    {
+        "id": "TICKET_040",
+        "asunto": "Pistolas PDA con conexión intermitente en el almacén",
+        "cuerpo": "Estimado equipo de soporte, me dirijo a ustedes para informar que hemos notificado problemas de conexión intermitente con las pistolas PDA almacenadas en nuestro almacén. Las unidades afectadas pierden su conexión a la red en intervalos regulares, lo que puede causar problemas en el funcionamiento de los dispositivos y afectar nuestra capacidad de operación. Al momento no hemos podido determinar la causa exacta del problema y estamos buscando soluciones para abordarlo. Les pediría que nos brinden su apoyo inmediato para encontrar una solución efectiva y restaurar la estabilidad en nuestras pistolas PDA. Muchas gracias por su atención a este asunto.",
+        "gt_queja": 6,
+        "gt_retraso": 6
+    },
+    {
+        "id": "TICKET_041",
+        "asunto": "Excel se queda colgado con macros pesadas",
+        "cuerpo": "Hola, me he estado encontrando con un problema en Excel que se ha vuelto muy frustrante. Al intentar abrir una hoja de cálculo con macros integrados, el programa se queda bloqueado y no se puede cerrar. Aunque he intentado varias soluciones, ninguna parece funcionar. ¿Podrían ayudarme a resolver este problema?",
+        "gt_queja": 5,
+        "gt_retraso": 5
+    },
+    {
+        "id": "TICKET_042",
+        "asunto": "Solicitud de cambio de ratón por uno ergonómico en mi equipo",
+        "cuerpo": "Estimado equipo de soporte informático,\r\n\r\nMe dirijo a ustedes para solicitar el cambio de mi ratón actual por uno más ergonómico. El problema es que el ratón que tengo es demasiado pequeño y me causa malestar en la espalda mientras trabajo. Un ratón con una anchura y profundidad adecuadas me ayudaría a mantener una postura correcta y reducir la fatiga.\r\n\r\nMe gustaría saber si hay alguna posibilidad de cambiarlo sin afectar el rendimiento del equipo. Estoy dispuesto a proporcionar más información o hacer cualquier ajuste necesario para asegurarme que el nuevo ratón no cause problemas.\r\n\r\nAgradezco su atención a este asunto y espero una respuesta lo antes posible.\r\n\r\nAtentamente, [Tu nombre]",
+        "gt_queja": 3,
+        "gt_retraso": 2
+    },
+    {
+        "id": "TICKET_043",
+        "asunto": "Problema con OneDrive no sincronizado",
+        "cuerpo": "--- Mensaje reenviado ---\nHola Soporte Informático,\n\nMe dirijo a ustedes para reportar un problema con mi cuenta de OneDrive. Ha estado funcionando correctamente hasta hace unos días, pero ahora no se sincroniza con el resto de mis archivos.\nLa cruz roja indica que algo ha salido mal durante la sincronización y no puedo acceder a mis archivos actuales.\nNecesito ayuda para solucionar este problema lo antes posible.\nGracias por su atención.\nAtentamente, [Tu nombre]",
+        "gt_queja": 4,
+        "gt_retraso": 4
+    },
+    {
+        "id": "TICKET_044",
+        "asunto": "Pistolas PDA del almacén con conexión intermitente",
+        "cuerpo": "Hola soporte, tengo un problema con las pistolas PDA del almacén. La conexión a Internet es intermitente y no puedo verificar el inventario o realizar operaciones en tiempo real. ¿Pueden ayudarme a resolver este problema? Gracias por su atención.",
+        "gt_queja": 6,
+        "gt_retraso": 6
+    },
+    {
+        "id": "TICKET_045",
+        "asunto": "Solicitud de instalación de Visio para un proyecto",
+        "cuerpo": "--- Mensaje reenviado ---\nEstimado equipo de soporte informático,\n\nMe dirijo a ustedes con el fin de solicitar la instalación de Visio en mi computadora para un proyecto que se llevará a cabo el mes que viene.\nEl objetivo es utilizar esta herramienta para crear diagramas y modelos visuales, lo que me permitirá presentar mis progresos de manera más efectiva.\nSe ha mencionado que podría instalarse durante la próxima semana, si es posible podría decirme un plazo aproximado.\nGracias por su ayuda.\nAtentamente,\n[Nombre del remitente]",
+        "gt_queja": 3,
+        "gt_retraso": 1
+    },
+    {
+        "id": "TICKET_046",
+        "asunto": "Ayuda para programar una reunión en Teams",
+        "cuerpo": "Estimado equipo de soporte informático,\n\nHe estado experimentando problemas al intentar programar una reunión en Microsoft Teams. A pesar de seguir las instrucciones del sistema, no puedo lograrlo.\n\nNecesitaría su ayuda para entender qué es lo que estoy haciendo mal y cómo puedo solucionar este problema.\nEstoy dispuesto a proporcionar más información si es necesario.\nGracias por su atención.\n\ntengo un problema con la programación de una reunión en Microsoft Teams. No sé cómo hacerlo correctamente.\nNo he podido encontrar información clara sobre el tema.\n¿Podrían ayudarme?\nSoy el usuario que necesita ayuda.",
+        "gt_queja": 2,
+        "gt_retraso": 3
+    },
+    {
+        "id": "TICKET_047",
+        "asunto": "Problema con velocidad y bloqueos en ERP SAP",
+        "cuerpo": "Hola a la atención de soporte, me dirijo para informar que estamos experimentando un problema significativo con la velocidad y el bloqueo del sistema ERP SAP. Esto está afectando negativamente nuestra capacidad para facturar hoy y necesitamos una ayuda inmediata para solucionar este problema lo antes posible. Los funcionarios están bloqueados debido a la lentitud del sistema y no podemos avanzar con nuestras tareas. ¿Podrían proporcionarnos un apoyo técnico para resolver este asunto tan pronto como sea posible? Muchas gracias por su atención a este problema que afecta directamente nuestra capacidad de operar.",
+        "gt_queja": 6,
+        "gt_retraso": 7
+    },
+    {
+        "id": "TICKET_048",
+        "asunto": "Solicitud de instalación de Visio para un proyecto el mes que viene",
+        "cuerpo": "--- Mensaje reenviado ---\nEstimado equipo de soporte informático,\n\nMe dirijo a ustedes para solicitar la instalación de Visio en mi ordenador para un proyecto que comienzo el mes que viene. Necesito esta herramienta para crear diagramas y modelos visuales, y no tengo acceso a ella en mi computadora actual.\n\n¿Podrían ayudarme con la instalación de Visio y proporcionarme instrucciones sobre cómo usarla?\nGracias por su ayuda.\nAtentamente, [Tu nombre]",
+        "gt_queja": 3,
+        "gt_retraso": 1
+    },
+    {
+        "id": "TICKET_049",
+        "asunto": "Problema de WiFi en el ala oeste",
+        "cuerpo": "--- Mensaje reenviado ---\nHola a todos,\nMe dirijo a ustedes como Director Planta de la empresa para informarles sobre un problema que ha estado afectando al departamento durante varios días.\nEl WiFi en el ala oeste está muy lento y esto está teniendo un impacto negativo en nuestro trabajo diario. Los empleados han reportado dificultades para acceder a los recursos de la empresa y conectarse con otros departamentos.\nNecesitamos solucionar este problema lo antes posible para mantener la productividad en nuestro ala oeste. Me gustaría programar una reunión para hablar más sobre el asunto y explorar las opciones disponibles.\nAgradezco su atención a este tema.\nAtentamente, [Tu nombre]",
+        "gt_queja": 7,
+        "gt_retraso": 7
+    },
+    {
+        "id": "TICKET_050",
+        "asunto": "Problema con WiFi en ala oeste lento y afectando al departamento",
+        "cuerpo": "Hola Soporte Informático,\n\nEstimados,\\nMe dirijo a ustedes para informarle que el WiFi en la ala oeste de nuestra empresa ha sido muy lento durante los últimos días, lo que está afectando significativamente al departamento.\nLa velocidad del conexión es extremadamente baja y no podemos funcionar de manera eficiente con este problema.\nNecesitamos ayuda para resolver este problema lo antes posible.\nAgradezco su pronta atención a este asunto.\nAtentamente, Director Planta",
+        "gt_queja": 7,
+        "gt_retraso": 7
+    },
+    {
+        "id": "TICKET_051",
+        "asunto": "Aire acondicionado CPD falló en racks de 35 grados",
+        "cuerpo": "Estimado equipo de soporte informático,\n\nEl aire acondicionado CPD ha fallado, lo que está causando problemas en los racks donde se encuentran los equipos. Actualmente, la temperatura en estos espacios es de 35 grados Celsius.\n\nLa situación actual es crítica y requiere atención urgente para evitar daños adicionales o pérdidas de datos. Te solicito su pronta intervención para solucionar este problema.\n\nAgradezco su disponibilidad para asistirme en este asunto.\n\nAtentamente,\n[Tu nombre] - Técnico CPD",
+        "gt_queja": 2,
+        "gt_retraso": 10
+    },
+    {
+        "id": "TICKET_052",
+        "asunto": "Excel se queda colgado con macros pesadas",
+        "cuerpo": "Hola, necesito ayuda para resolver un problema con Microsoft Excel. Al abrir una hoja de cálculo con macros integrados, el programa se queda colgado y no responde. Los macros en sí mismo no parecen ser el problema, pero algo relacionado con ellos está causando el fallo. ¿Pueden sugerirme alguna solución para recuperar la funcionalidad de Excel? Agradezco su ayuda",
+        "gt_queja": 5,
+        "gt_retraso": 5
+    },
+    {
+        "id": "TICKET_053",
+        "asunto": "Configuración de la firma del correo electrónico",
+        "cuerpo": "Para configurar la firma del correo electrónico, puede seguir estos pasos:\n\n1. Inicie sesión en su cuenta de correo electrónico.\n2. Haga clic en su perfil o icono de usuario en la esquina superior derecha.\n3. Seleccionará la opción 'Configuración' o 'Ajustes'.\n4. En la sección de 'Firma', agregará el texto que desee aparecer como firma en todos los correos electrónicos.\n5. Puede personalizar la apariencia de su firma, incluyendo el logotipo de la empresa y otros datos.\n6. Una vez realizado el cambio, vuelva a iniciar sesión para ver la nueva firma.",
+        "gt_queja": 2,
+        "gt_retraso": 3
+    },
+    {
+        "id": "TICKET_054",
+        "asunto": "DETECTADO RANSOMWARE!!!",
+        "cuerpo": "¡ESTO ES UN EMERGENCIA!!! Detectamos un ataque de ransomware en nuestra sede central y estamos trabajando para contener el daño. El software bloquea nuestros sistemas y nos está exigiendo un rescate para desbloquearlos. ¡Estamos hablando de una situación crítica aquí! Necesitamos urgentemente asistencia para detener este ataque y proteger nuestra información. Por favor, envíenos ayuda lo antes posible!!!",
+        "gt_queja": 9,
+        "gt_retraso": 10
+    },
+    {
+        "id": "TICKET_055",
+        "asunto": "NO SE PODE PONER FONDO EN ZOOM!!!",
+        "cuerpo": "--- Mensaje reenviado ---\n¡Estoy pasando por un momento de locura en la oficina!\nNO HA HABIDO NINGÚN EMPLEADO QUE NO CONOCIASE EL MERCADO DE ZOOM DESDE LA NADA!!!\nEL PROBLEMA ES PONER FONDO EN ZOOM Y NO SABE HACERLO!\n¡Estoy al borde del desánimo y no puedo seguir así!\n¿ALGUIÉN ME PODRÍA AIUDAR CON ESTO?\nNO SOY UN GENIO, SIEMPRE Y OTRA VEZ LO HAGO DE LA MANERA FÁCIL!!!!!!",
+        "gt_queja": 8,
+        "gt_retraso": 4
+    },
+    {
+        "id": "TICKET_056",
+        "asunto": "Error en Batch de backups: No hay copia hoy",
+        "cuerpo": "Estimado equipo de soporte informático,\n\nMe dirijo a ustedes para informarle que se ha producido un error en la batch de backups de hoy. Aunque hemos iniciado el proceso, no ha podido completarse y actualmente no hay copia de los datos.\nPor favor investiguen esta situación y hagan lo necesario para resolver este problema lo antes posible.\nAtentamente,\n[Tu nombre] Eres el empleado en la empresa que está escribiendo al soporte informático.",
+        "gt_queja": 2,
+        "gt_retraso": 8
+    },
+    {
+        "id": "TICKET_057",
+        "asunto": "Solicitud de instalación de Visio para proyecto futuro",
+        "cuerpo": "--- Mensaje reenviado ---\n\nHola,\nMe he unido recientemente a la empresa y estoy ansioso por contribuir al equipo. \nEn mi primera petición, mencioné que necesitaría instalar Visio para un proyecto que se llevará a cabo el mes que viene.\nNo tengo claro si ya se ha comenzado o si se está planeando algún tipo de instalación de software, pero me gustaría saber cuál es el próximo paso en este proceso.\nGracias por tu atención.\nAtentamente,\n[Tu nombre]",
+        "gt_queja": 3,
+        "gt_retraso": 1
+    },
+    {
+        "id": "TICKET_058",
+        "asunto": "Problema con el ERP SAP que bloquea la facturación de hoy",
+        "cuerpo": "Estimado equipo de soporte, necesito ayuda urgente. El sistema ERP SAP está funcionando lentamente y está bloqueando la facturación de las ventas para hoy. He intentado iniciar sesión varias veces, pero el sistema no responde. ¿Pueden investigar y resolver este problema lo antes posible? Agradezco su pronta atención a este asunto.",
+        "gt_queja": 6,
+        "gt_retraso": 7
+    },
+    {
+        "id": "TICKET_059",
+        "asunto": "Ayuda con la configuración de una reunión en Microsoft Teams",
+        "cuerpo": "Estoy trabajando como becario en la sección de soporte informático de la empresa y estoy experimentando dificultades para configurar una reunión en Microsoft Teams. No tengo experiencia en programación y no puedo encontrar información precisa sobre cómo hacerlo. ¿Podría proporcionarme un ejemplo o una guía básica sobre cómo configurar una reunión en Teams? Esto me ayudaría mucho a mejorar mi capacidad de soporte técnico.",
+        "gt_queja": 2,
+        "gt_retraso": 3
+    },
+    {
+        "id": "TICKET_060",
+        "asunto": "Error en Batch de back-ups: No hay copia para hoy",
+        "cuerpo": "Se ha detectado un error en la configuración del batch de backup, lo que resulta en la falta de copia de los datos actuales. En este momento, no se cuenta con una versión reciente de nuestros datos. Este error es serio y debe resolverse lo antes posible para garantizar la integridad y seguridad de nuestras bases de datos.",
+        "gt_queja": 2,
+        "gt_retraso": 8
+    },
+    {
+        "id": "TICKET_061",
+        "asunto": "Repetición de solicitud: Problema con Active Directory",
+        "cuerpo": "--- Mensaje reenviado ---\nEstimado equipo de soporte informático,\nme dirijo a ustedes con la intención de solicitar nuevamente ayuda con un problema que ha ocurrido por tercera vez en el Active Directory.\nEl problema es que, para la tercera vez, el sistema se ha bloqueado y no puedo acceder a los recursos de la empresa.\nHe revisado las configuraciones y he realizado todas las acciones sugeridas anteriormente, pero sigue sin solucionarse.\nPor favor, me proporcionen una solución inmediata para que pueda retomar mi trabajo.\nAgradezco de antemano su atención a este asunto.\nAtentamente,\n[Tu nombre]",
+        "gt_queja": 5,
+        "gt_retraso": 6
+    },
+    {
+        "id": "TICKET_062",
+        "asunto": "Reunión ejecutiva bloqueada: Pantalla interactiva rota",
+        "cuerpo": "Hola equipo, tiene que ser consciente de que la reunión ejecutiva se ha visto afectada por un problema técnico en nuestra pantalla interactiva. El dispositivo ha fallado y no podemos proceder con el acto programado. Necesitamos resolver este problema lo antes posible para evitar retrasos en la toma de decisiones. Me gustaría saber quién ha estado trabajando en el mantenimiento del equipo y cuando se espera poder restaurar la funcionalidad. ¿Pueden aportar algún consejo o solución temporal hasta entonces? Espero una respuesta lo antes posible para avanzar con las cosas.",
+        "gt_queja": 7,
+        "gt_retraso": 8
+    },
+    {
+        "id": "TICKET_063",
+        "asunto": "Falla de aire acondicionado CPD en racks a 35 grados",
+        "cuerpo": "Estimado equipo de soporte informático,\n\nMe dirijo para informar sobre una falla detectada en el aire acondicionado instalado en los racks del centro de datos. El temperatura en estos racks ha superado los 35 grados.\n\nLa falla se ha reportado y requiere su atención inmediata para evitar daños adicionales al equipo y garantizar un funcionamiento óptimo del sistema.\n\nPor favor, procedan con las reparaciones o ajustes necesarios lo antes posible.\n\nAgradezco su pronta atención a este asunto.\n\nAtentamente,\n[Tu nombre]",
+        "gt_queja": 2,
+        "gt_retraso": 10
+    },
+    {
+        "id": "TICKET_064",
+        "asunto": "Problema de velocidad de WiFi en el ala oeste",
+        "cuerpo": "--- Mensaje reenviado ---\nHola equipo de soporte informático,\nMe dirijo a ustedes con respecto a un problema persistente que ha estado afectando a mi departamento, ubicado en el ala oeste. La velocidad del WiFi es muy lenta y está impactando significativamente nuestras operaciones.\nHe notado que otros empleados del mismo ala también están experimentando problemas similares.\nNecesito que investiguen esta situación lo antes posible y tomen las medidas necesarias para mejorar la velocidad de nuestra conexión Wi-Fi. Gracias por su pronta atención a este asunto.\nAtentamente, [Tu nombre] Director Planta",
+        "gt_queja": 7,
+        "gt_retraso": 7
+    },
+    {
+        "id": "TICKET_065",
+        "asunto": "Certificado SSL del dominio caducado en 24h",
+        "cuerpo": "--- Mensaje reenviado ---\nNecesito tu ayuda para resolver un problema urgente con nuestro certificado SSL. El certificado del dominio de nuestra empresa caduca en 24 horas y necesitamos su ayuda para obtener uno nuevo lo antes posible.\nNuestra empresa depende mucho de este certificado para garantizar la seguridad y confiabilidad de nuestros servicios en línea.\nPor favor, indícanos los pasos que debemos seguir para solicitar un nuevo certificado SSL y cualquier información adicional que necesitemos para facilitar el proceso.\nAgradezco de antemano su atención a este asunto y espero tu respuesta lo antes posible.",
+        "gt_queja": 3,
+        "gt_retraso": 7
+    },
+    {
+        "id": "TICKET_066",
+        "asunto": "Problema con sincronización de OneDrive (Cruz Roja)",
+        "cuerpo": "Hola equipo de soporte informático, me está pasando un problema con la sincronización de mi cuenta de OneDrive. A pesar de haber configurado todo correctamente, no puedo ver los cambios que hago en mis archivos y ellos se pierden cuando actualizo el servicio. La opción Cruz Roja está activada y sigue sin resolver el problema. ¿Podrían ayudarme a solucionar esto lo antes posible?",
+        "gt_queja": 4,
+        "gt_retraso": 4
+    },
+    {
+        "id": "TICKET_067",
+        "asunto": "PÉRDIDA MÁSIVA! PASARELA WEB DA ERROR 500 Y ESTO ES UN DESASTRE ECONÓMICO!!",
+        "cuerpo": "--- Mensaje reenviado ---\nPérdida económica masiva!!! La pasarela web de nuestra tienda en línea da Error 500 y no puedo permitir que esto suceda!!! Los clientes están perdiendo minutos, dinero y confianza!!! Necesito una solución INMEDIATA!!!",
+        "gt_queja": 9,
+        "gt_retraso": 9
+    },
+    {
+        "id": "TICKET_068",
+        "asunto": "Ayuda para programar una reunión en Teams",
+        "cuerpo": "Estoy un poco perdido con la configuración de una reunión en Microsoft Teams. Hasta ahora, no he podido lograr hacer que se lleve a cabo correctamente. ¿Podrían darme orientación sobre cómo programarla correctamente? Estoy buscando información y ayuda para poder realizar mi trabajo sin inconvenientes.",
+        "gt_queja": 2,
+        "gt_retraso": 3
+    },
+    {
+        "id": "TICKET_069",
+        "asunto": "Configuración de la firma del correo electrónico",
+        "cuerpo": "Para configurar la firma del correo electrónico, primero necesitas acceder a tus cuentas de correo en nuestro panel de control. Busca la sección correspondiente y haz clic en ella. A continuación, selecciona 'Configuración avanzada' o similar. En esta sección encontrarás las opciones para personalizar tu perfil y su información. Haz clic en el botón 'Firma personalizada'. Se te presentará un menú con varias opciones donde podrás elegir si deseas agregar una firma de texto, una imagen o ambos. Específicamente, busca la opción que diga 'Firma de texto' o algo similar y haz clic en ella. En este campo puedes escribir el texto que desees incluir como parte de tu firma. Al final del formulario, haz clic en 'Guardar cambios'. Por último, no olvides revisar nuestras políticas de uso para información adicional al respecto.",
+        "gt_queja": 2,
+        "gt_retraso": 3
+    },
+    {
+        "id": "TICKET_070",
+        "asunto": "FALLO DE PHISHING MÁSICO!",
+        "cuerpo": "¡Estoy escribiendo a soporte para reportar que mi compañero hizo click en un phishing masivo!!! Esto es UN DISASTRE!!! No sabemos cuántos correos han llegado o qué información ha sido robada!!! ¡Tienes que actuar de inmediato y tomar medidas preventivas!!! Por favor, no me tomes esto a la ligera!!! Necesito ayuda urgente!!!",
+        "gt_queja": 8,
+        "gt_retraso": 9
+    },
+    {
+        "id": "TICKET_071",
+        "asunto": "Problema con la impresora planta 2 que planta papel",
+        "cuerpo": "Estimado equipo de soporte, me dirijo a ustedes para informarles un problema que estamos experimentando con nuestra impresora planta 2. La impresora ha estado plantando papel y no podemos utilizarla para nuestros fines. Necesitamos su ayuda para resolver este problema lo antes posible. Muchas gracias por su atención a este asunto.",
+        "gt_queja": 5,
+        "gt_retraso": 4
+    },
+    {
+        "id": "TICKET_072",
+        "asunto": "Problema con el Active Directory por tercera vez",
+        "cuerpo": "--- Mensaje reenviado ---\nMe estoy comunicando de nuevo para reportar un problema con nuestro Active Directory. Por tercera ocasión, este sistema se ha bloqueado y no puedo acceder a él.\nEl problema parece ser el mismo que los anteriores: la conexión se establece pero luego falla. He intentado solucionarlo siguiendo las instrucciones proporcionadas en las respuestas anteriores, pero al parecer, no han funcionado.\nNecesito ayuda para resolver este problema lo antes posible para poder acceder a los sistemas de la empresa.\nGracias por su atención a este asunto.\nAtentamente, [Tu nombre]",
+        "gt_queja": 5,
+        "gt_retraso": 6
+    },
+    {
+        "id": "TICKET_073",
+        "asunto": "Ayuda para programar una reunión en Teams",
+        "cuerpo": "Estoy intentando programar una reunión en Microsoft Teams, pero no sé cómo hacerlo. He visto las opciones de calendario y la funcionalidad de reuniones, pero no puedo encontrar la forma correcta de programarla. ¿Pueden ayudarme con esto?",
+        "gt_queja": 2,
+        "gt_retraso": 3
+    },
+    {
+        "id": "TICKET_074",
+        "asunto": "Problema con la impresora planta 2 que se atasca papel",
+        "cuerpo": "Hola, estoy experimentando un problema con la impresora planta 2 de nuestro equipo. La impresora comienza a atascar papel y no puedo imprimir sin problemas. He intentado reiniciarla y cambiar el papel, pero el problema persiste. ¿Podrían ayudarme a resolver este problema lo antes posible?",
+        "gt_queja": 5,
+        "gt_retraso": 4
+    },
+    {
+        "id": "TICKET_075",
+        "asunto": "Solicitud de instalación de Visio para proyecto del mes que viene",
+        "cuerpo": "--- Mensaje reenviado ---\nEstimado Equipo de Soporte Informático,\n\nMe dirijo a ustedes con el fin de solicitar la instalación de Visio en mi equipo para un proyecto que se llevará a cabo el próximo mes. Es importante que tenga acceso a esta herramienta para poder trabajar de manera efectiva.\nNecesito saber si es posible instalarlo y qué procedimientos necesitaré seguir para hacerlo.\nAgradezco su atención a este asunto.\nAtentamente, [Tu Nombre]",
+        "gt_queja": 3,
+        "gt_retraso": 1
+    },
+    {
+        "id": "TICKET_076",
+        "asunto": "Problema de rendimiento en ERP SAP que afecta la facturación",
+        "cuerpo": "Hola equipo, estoy experimentando un problema grave con nuestro sistema ERP SAP. El sistema está funcionando muy lentamente y bloquea la facturación de hoy. Esto me está causando problemas significativos en nuestra producción diaria. ¿Podrían investigar esta situación lo antes posible? Agradezco su atención a este asunto.",
+        "gt_queja": 6,
+        "gt_retraso": 7
+    },
+    {
+        "id": "TICKET_077",
+        "asunto": "Excel se queda colgado con macros pesadas",
+        "cuerpo": "Hola, estamos experimentando problemas en nuestro equipo de Excel. La aplicación se queda colgada y no se puede ejecutar debido a las macros pesadas. ¿Podrías ayudarnos a encontrar una solución para este problema?",
+        "gt_queja": 5,
+        "gt_retraso": 5
+    },
+    {
+        "id": "TICKET_078",
+        "asunto": "PROBLEMA DE FONDO EN ZOOM!!!!!",
+        "cuerpo": "--- Mensaje reenviado ---\n¡ESTO ES UNA DESASTRE!!! No puedo poner fondo en Zoom y estoy a punto de perder la paciencia!\n¡Por favor, ayuda! ¡Espero una respuesta lo antes posible!!!",
+        "gt_queja": 8,
+        "gt_retraso": 4
+    },
+    {
+        "id": "TICKET_079",
+        "asunto": "Reunión ejecutiva bloqueada y pantalla interactiva rota",
+        "cuerpo": "Estimado equipo de soporte informático,\n\nActualmente estamos experimentando un problema con la reunión ejecutiva que se está blockeando. Además, la pantalla interactiva no funciona correctamente.\nEspero su pronta atención a este asunto y su ayuda para resolverlo lo antes posible.\nGracias por su apoyo.\nAtentamente, [Tu nombre]",
+        "gt_queja": 7,
+        "gt_retraso": 8
+    },
+    {
+        "id": "TICKET_080",
+        "asunto": "Problema WiFi en el ala oeste afectando al departamento",
+        "cuerpo": "--- Mensaje reenviado ---\nHola a todos,\n\nMe dirijo a ustedes con respecto a un problema que ha estado afectando la productividad en nuestro departamento del ala oeste. El WiFi en esa zona de la oficina parece estar muy lento, lo que está causando problemas significativos para nuestra capacidad de trabajo.\nEstoy trabajando en encontrar una solución y necesito su colaboración para asegurarnos de que este problema se resuelva de manera efectiva.\nMuchas gracias por su atención a este asunto.\nAtentamente,\n[Nombre del Director] --- Mensaje reenviado ---",
+        "gt_queja": 7,
+        "gt_retraso": 7
+    },
+    {
+        "id": "TICKET_081",
+        "asunto": "Error de permisos en la carpeta 'Nominas_2024'",
+        "cuerpo": "--- Mensaje reenviado ---\nEstimado equipo de soporte, \nme dirijo a ustedes con el fin de solicitar ayuda con un problema que estoy experimentando en nuestro sistema de gestión de pagos. El error que estoy obteniendo es relacionado con la carpeta 'Nominas_2024', donde no puedo acceder a ella debido a un error de permisos.\nNecesito la ayuda para solucionar este problema y poder continuar con el proceso de pago de las nominas.\nMuchas gracias por su atención a este asunto.\nAtentamente, \n[Nombre del empleado]",
+        "gt_queja": 4,
+        "gt_retraso": 4
+    },
+    {
+        "id": "TICKET_082",
+        "asunto": "Problema con WiFi en el ala oeste muy lento afectando al departamento",
+        "cuerpo": "Estimado equipo de soporte informático,\r\n\r\nMe dirijo a ustedes para reportar un problema persistente con la conexión WiFi en el ala oeste de nuestra empresa. El problema es que la velocidad de la conexión es muy lenta, lo que está afectando significativamente al departamento.\r\n\r\nLa situación ha sido así durante varias semanas y hemos intentado solucionarlo por nuestro cuenta, pero no hemos podido encontrar una solución efectiva. Por lo tanto, necesitamos su ayuda para resolver este problema de manera oportuna.\r\n\r\nAgradecemos con anticipación su atención a este asunto y les pedimos que investiguen la causa del problema y leyesen las medidas correctas para abordarlo.\r\n\r\nAtentamente,\r\n[Nombre] Director Planta",
+        "gt_queja": 7,
+        "gt_retraso": 7
+    },
+    {
+        "id": "TICKET_083",
+        "asunto": "Problema con WiFi en el ala oeste",
+        "cuerpo": "Hola equipo de soporte informático, me dirijo a ustedes desde la planta directorio para reportar un problema que ha estado afectando al departamento en el ala oeste. El WiFi en esa zona está muy lento y esto está causando molestias a los empleados que trabajan allí. Necesitaría una intervención lo antes posible para solucionar este problema y mejorar la conexión. Agradezco su atención y pronta resolución de este asunto.\n\nAtentamente, el Director planta",
+        "gt_queja": 7,
+        "gt_retraso": 7
+    },
+    {
+        "id": "TICKET_084",
+        "asunto": "Ayuda con OneDrive no sincronizado",
+        "cuerpo": "Hola a la atención del equipo de soporte informático,\nme escribo para solicitar ayuda con un problema que estoy experimentando con mi cuenta de OneDrive. Desde hace unos días, el sincronizador de archivos no está funcionando correctamente y no puedo acceder a mis archivos en la nube.\nEn particular, la carpeta cruz roja (\\cruxroja) no se sincroniza con la ubicación local de mi computadora.\nHe intentado reiniciar el servicio de OneDrive y actualizar la aplicación, pero el problema persiste.\n¿Podrían ayudarme a solucionar este problema? Estoy dispuesto a proporcionar cualquier información adicional que necesiten para diagnosticar y resolver este asunto.\nGracias por su atención a este asunto.\nAtentamente, [Tu nombre]",
+        "gt_queja": 4,
+        "gt_retraso": 4
+    },
+    {
+        "id": "TICKET_085",
+        "asunto": "ALERTA DE PHISHING MASIVO - Ayuda inmediata necesaria!",
+        "cuerpo": "--- Mensaje reenviado ---\n!!!NO ME CREAN!!!\nMi compañero de trabajo hizo click en un correo electrónico fraudulento y ahora todo el equipo está en peligro!!! No sé si se trata de un phising masivo o alguna otra amenaza informática... \nLa situación es CRÍTICA!!! Necesito ayuda inmediata para resolver este problema y proteger la seguridad de nuestra empresa\n ¡Por favor, actúen con urgencia!!!",
+        "gt_queja": 8,
+        "gt_retraso": 9
+    },
+    {
+        "id": "TICKET_086",
+        "asunto": "Excel se queda colgado con macros pesadas",
+        "cuerpo": "Hola, necesito ayuda con Excel. Al abrir un archivo con macros, el programa se queda colgado y no responde. He intentado restaurar la ventana o cerrar y volver a abrir, pero el problema persiste. ¿Hay alguna solución para solucionar este problema?",
+        "gt_queja": 5,
+        "gt_retraso": 5
+    },
+    {
+        "id": "TICKET_087",
+        "asunto": "PÉRDIDA MÁSIVA! Error 500 en la pasarela web!",
+        "cuerpo": "¡Estoy perdiendo dinero a un ritmo alarmante!!! La pasarela web de nuestra tienda en línea da error 500 y no puedo encontrar una solución. ¡Es un desastre! La pérdida económica es masiva y estoy a punto de perder el control de la situación. Necesito una solución urgente y necesito que se tome esta cuestión con seriedad. ¿Cuándo van a resolver este problema? ¡Estoy agotado!!!",
+        "gt_queja": 9,
+        "gt_retraso": 9
+    },
+    {
+        "id": "TICKET_088",
+        "asunto": "EL COMPAÑERO HIZO CLICK EN PHISHING MASIVO!!!",
+        "cuerpo": "--- Mensaje reenviado ---!\n¡ESTO ES UNA EMERGENCIA!!\nEl compañero de trabajo hace clic en un correo electrónico de phishing masivo y ahora el sistema está lento y muchos usuarios están perdiendo información crucial!!!\n¿QUÉ HACEMOS?!?\nDEBE HACERSE CARGO DE ESTE PROBLEMA DE INMEDIATO!",
+        "gt_queja": 8,
+        "gt_retraso": 9
+    },
+    {
+        "id": "TICKET_089",
+        "asunto": "Reunión ejecutiva bloqueada y pantalla interactiva rota",
+        "cuerpo": "Estimado equipo de soporte, me dirijo a ustedes con preocupación. La reunión ejecutiva que tenía programada para hoy se ha vio obstaculizada debido al bloqueo de la pantalla interactiva en el sistema de presentaciones. Me gustaría saber si alguien está disponible para ayudarme a solucionar este problema lo antes posible, ya que el plazo para tomar decisiones es muy corto y no puedo posponerlo. La pantalla interactiva es fundamental para nuestra reunión y cualquier retraso podría afectar negativamente nuestro proceso de toma de decisiones. Por favor, indíquenme las acciones que se van a tomar para solucionar este problema lo antes posible. Agradezco su pronta atención a este asunto. Gracias.",
+        "gt_queja": 7,
+        "gt_retraso": 8
+    },
+    {
+        "id": "TICKET_090",
+        "asunto": "Ayuda para programar una reunión en Teams",
+        "cuerpo": "Estoy intentando programar una reunión en Microsoft Teams pero no puedo hacerlo correctamente. He seguido los pasos del sitio web y he visto tutoriales, pero todavía no lo consigo. ¿Podrías darme algunos consejos o explicaciones paso a paso para poder hacerlo? Necesito hacer una reunión con mi equipo el día de mañana. Agradecería mucho su ayuda.",
+        "gt_queja": 2,
+        "gt_retraso": 3
+    },
+    {
+        "id": "TICKET_091",
+        "asunto": "Problema con aire acondicionado CPD en racks a 35 grados",
+        "cuerpo": "Estimado equipo de soporte informático,\n\nHe notado que el aire acondicionado no está funcionando correctamente en nuestros racks, lo que ha llevado a una temperatura constante de 35 grados. Esto afecta significativamente la eficiencia y estabilidad del sistema.\n\nEl problema se produce en los siguientes racks: \n Rack Número 1 y Rack Número 2.\n La situación es crítica y requiere atención inmediata para evitar daños a hardware o software.\n\nSería muy apreciado poder recibir una estimación de tiempo aproximado para la reparación o solución del problema. Agradezco su pronta atención a este asunto.\n\nAtentamente, \n[Tu nombre]",
+        "gt_queja": 2,
+        "gt_retraso": 10
+    },
+    {
+        "id": "TICKET_092",
+        "asunto": "Reunión ejecutiva bloqueada y pantalla interactiva rota",
+        "cuerpo": "Hola a todos, me dirijo a ustedes para informarles que la reunión ejecutiva se encuentra bloqueada debido a un problema con la pantalla interactiva. A pesar de los esfuerzos por resolver el asunto, la pantalla sigue sin funcionar correctamente. Necesito su ayuda para encontrar una solución y poder llevar a cabo la reunión lo antes posible. Gracias por su comprensión y cooperación.",
+        "gt_queja": 7,
+        "gt_retraso": 8
+    },
+    {
+        "id": "TICKET_093",
+        "asunto": "Error de permisos en carpeta 'Nominas_2024'",
+        "cuerpo": "--- Mensaje reenviado ---\nQueremos informarle que estamos experimentando un problema con la carpeta 'Nominas_2024'.\nLos errores de permisos están afectando nuestra capacidad para acceder y editar los archivos de manera efectiva.\nNecesitamos ayuda para solucionar este problema lo antes posible.\n\nAtentamente,\nEl equipo de soporte informático",
+        "gt_queja": 4,
+        "gt_retraso": 4
+    },
+    {
+        "id": "TICKET_094",
+        "asunto": "Error en Batch de Backups",
+        "cuerpo": "Estimado equipo de soporte informático,\n\nEl sistema reporta un error en la ejecución del batch de backups actuales.\nNo se ha generado una copia adecuada para guardar los datos de seguridad actualizados.\nRequerir ayuda para investigar y resolver este problema lo antes posible.\nAgradezco su atención a este asunto.",
+        "gt_queja": 2,
+        "gt_retraso": 8
+    },
+    {
+        "id": "TICKET_095",
+        "asunto": "ACTUALIZACIÓN DE EMERGENCIA: Ransomware .lock en la sede central",
+        "cuerpo": "¡ESTAMOS EN UNA SITUACIÓN DE EMERGENCIA! Detectamos un ataque de ransomware .lock en nuestra sede central y estamos trabajando incansablemente para contener el daño. ¡La seguridad de nuestros datos es nuestra prioridad número uno! Estamos tomando medidas urgentes para eliminar la amenaza y minimizar los efectos del ataque. ¡Por favor, esperen a que nos comuniquemos con más información sobre el estado actual de la situación y las acciones que tomamos para resolverla!",
+        "gt_queja": 9,
+        "gt_retraso": 10
+    },
+    {
+        "id": "TICKET_096",
+        "asunto": "Problema con la impresora planta 2 que esta plantando papel",
+        "cuerpo": "Hola equipo, tengo un problema con la impresora planta 2. Cuando intento imprimir, el papel se queda atasca y no puedo seguir con la impresión. He intentado limpiar el problema de diferentes maneras pero nada funciona. Necesito ayuda para solucionar este problema lo antes posible. ¿Alguien puede ayudarme a encontrar una solución?",
+        "gt_queja": 5,
+        "gt_retraso": 4
+    },
+    {
+        "id": "TICKET_097",
+        "asunto": "Error de permisos en carpeta 'Nominas_2024'",
+        "cuerpo": "--- Mensaje reenviado ---\nMi nombre es Juan Pérez y soy empleado de la empresa XYZ. Me dirijo a usted para informarle que estoy experimentando problemas con los permisos en la carpeta 'Nominas_2024'. A pesar de haber seguido las instrucciones de acceso previas, no puedo editar ni acceder a este archivo. ¿Podría ayudarme a solucionar este problema lo antes posible? Estoy disponible para proporcionar más información o realizar cualquier acción necesaria para resolver este error.\nAgradezco su atención a este asunto.\nAtentamente, Juan Pérez",
+        "gt_queja": 4,
+        "gt_retraso": 4
+    },
+    {
+        "id": "TICKET_098",
+        "asunto": "NO PUEDE ENCONTRAR EL FONDO EN ZOOM!!!",
+        "cuerpo": "¡ESTO ES UNA EMERGENCIA!!! Estoy tratando de configurar una reunión en Zoom y NO PUEDE ENCONTRAR EL FONDO!!!!! Esto es INCREÍBLE. He intentado todo: hacer clic en el icono del fondo, seleccionar la opción de fondo desde el menú, incluso intentar arrastrar un archivo para que se abra en el editor de imágenes... NINGÚN ALGO FUNCA!!! ¿Pueden ayudarme por favor? ¡ESTO ES UNA CATASTRÓFICA!!!",
+        "gt_queja": 8,
+        "gt_retraso": 4
+    },
+    {
+        "id": "TICKET_099",
+        "asunto": "Problema de rendimiento en ERP SAP que bloquea la facturación",
+        "cuerpo": "Hola a todos, me dirijo a ustedes para informar un problema importante que se ha generado en nuestra empresa. El sistema ERP SAP, el cual utilizamos actualmente para gestionar nuestras operaciones contables y de gestión, ha experimentado un grave problema de rendimiento. El sistema ha vuelto extremadamente lento y bloquea completamente la opción de facturación. Esto nos impide completar las transacciones financieras de hoy, lo que tiene graves implicaciones en nuestra capacidad para cumplir con los plazos y responsabilidades de nuestros clientes. Buscamos una solución rápida y efectiva para restaurar el normal funcionamiento del sistema, permitiendo la facturación y todas las otras operaciones contables y de gestión. Estoy dispuesto a colaborar en cualquier manera posible para abordar este problema y encontrar una solución que no afecte nuestra productividad o nuestro servicio al cliente. Gracias por su atención a este asunto.",
+        "gt_queja": 6,
+        "gt_retraso": 7
+    },
+    {
+        "id": "TICKET_100",
+        "asunto": "Excel se queda colgado con macros pesadas",
+        "cuerpo": "Hola soporte, estoy teniendo un problema con Microsoft Excel. Al abrir archivos con macros, la aplicación se queda colgada y no me permite realizar ninguna acción. He intentado deshabilitar los macros y limpiar la memoria del programa, pero el problema persiste. ¿Podrían ayudarme a resolver este problema?",
+        "gt_queja": 5,
+        "gt_retraso": 5
+    }
+]

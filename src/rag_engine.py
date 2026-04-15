@@ -23,7 +23,7 @@ def similitud_coseno(v1, v2):
     if v1.size == 0 or v2.size == 0: return 0.0
     return np.dot(v1, v2) / (np.linalg.norm(v1) * np.linalg.norm(v2))
 
-def buscar_tickets_similares(asunto, cuerpo, top_k=2):
+def buscar_tickets_similares(asunto, cuerpo, top_k=2, db_path="data/incidencias.db"):
     """Busca en SQLite los tickets más parecidos semánticamente."""
     texto_buscar = f"{asunto} {cuerpo}"
     vector_nuevo = obtener_embedding(texto_buscar)
@@ -32,7 +32,7 @@ def buscar_tickets_similares(asunto, cuerpo, top_k=2):
         return [], []
 
     try:
-        conn = sqlite3.connect("data/incidencias.db")
+        conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
         
         # ACTULIZACIÓN: Extraemos las nuevas métricas multidimensionales y el feedback humano
